@@ -1,0 +1,96 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CFLAGS	makefile	/^CFLAGS = -std=c99$/;"	m
+CMD_ADD	sim_api.h	/^    CMD_ADD,    \/\/ dst <- src1 + src2$/;"	e	enum:__anon1
+CMD_BR	sim_api.h	/^    CMD_BR,     \/\/ Unconditional relative branch to PC+dst register value$/;"	e	enum:__anon1
+CMD_BREQ	sim_api.h	/^    CMD_BREQ,   \/\/ Branch to PC+dst if (src1 == src2)$/;"	e	enum:__anon1
+CMD_BRNEQ	sim_api.h	/^    CMD_BRNEQ,  \/\/ Branch to PC+dst if (src1 != src2)$/;"	e	enum:__anon1
+CMD_HALT	sim_api.h	/^    CMD_HALT,    \/\/ Special halt command indicating a stop to the machine$/;"	e	enum:__anon1
+CMD_LOAD	sim_api.h	/^    CMD_LOAD,   \/\/ dst <- Mem[src1 + src2]  (src2 may be an immediate)$/;"	e	enum:__anon1
+CMD_MAX	sim_api.h	/^    CMD_MAX = CMD_HALT$/;"	e	enum:__anon1
+CMD_NOP	sim_api.h	/^    CMD_NOP = 0,$/;"	e	enum:__anon1
+CMD_STORE	sim_api.h	/^    CMD_STORE,  \/\/ Mem[dst + src2] <- src1  (src2 may be an immediate)$/;"	e	enum:__anon1
+CMD_SUB	sim_api.h	/^    CMD_SUB,    \/\/ dst <- src1 - src2$/;"	e	enum:__anon1
+DECODE	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
+DetectHALT	sim_main.c	/^bool DetectHALT(SIM_coreState *state) {$/;"	f
+DumpCoreState	sim_main.c	/^void DumpCoreState(SIM_coreState *state) {$/;"	f
+EXECUTE	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
+EXE_stage	sim_core.c	/^void EXE_stage() {$/;"	f
+EXTRA_DEPS	makefile	/^EXTRA_DEPS = sim_api.h$/;"	m
+FETCH	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
+ID_stage	sim_core.c	/^void ID_stage () {$/;"	f
+IF_stage	sim_core.c	/^int IF_stage (uint32_t* addr, SIM_cmd *dst){$/;"	f
+MEMORY	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
+MEM_stage	sim_core.c	/^void MEM_stage(){$/;"	f
+OBJ	makefile	/^OBJ = $(OBJ_GIVEN) $(OBJ_CORE)$/;"	m
+OBJ_CORE	makefile	/^OBJ_CORE = sim_core.o$/;"	m
+OBJ_GIVEN	makefile	/^OBJ_GIVEN = $(patsubst %.c,%.o,$(SRC_GIVEN))$/;"	m
+PipeStageState	sim_api.h	/^} PipeStageState;$/;"	t	typeref:struct:__anon4
+SIM_CoreClkTick	sim_core.c	/^void SIM_CoreClkTick() {$/;"	f
+SIM_CoreGetState	sim_core.c	/^void SIM_CoreGetState(SIM_coreState *curState) {$/;"	f
+SIM_CoreReset	sim_core.c	/^int SIM_CoreReset(void) {$/;"	f
+SIM_MemClkTick	sim_mem.c	/^void SIM_MemClkTick()$/;"	f
+SIM_MemDataRead	sim_mem.c	/^int SIM_MemDataRead(uint32_t addr, int32_t *dst)$/;"	f
+SIM_MemDataWrite	sim_mem.c	/^void SIM_MemDataWrite(uint32_t addr, int32_t val)$/;"	f
+SIM_MemInstRead	sim_mem.c	/^void SIM_MemInstRead(uint32_t addr, SIM_cmd *dst)$/;"	f
+SIM_MemReset	sim_mem.c	/^int SIM_MemReset(const char *memImgFname)$/;"	f
+SIM_PIPELINE_DEPTH	sim_api.h	18;"	d
+SIM_REGFILE_SIZE	sim_api.h	19;"	d
+SIM_cmd	sim_api.h	/^} SIM_cmd;$/;"	t	typeref:struct:__anon3
+SIM_cmd_opcode	sim_api.h	/^} SIM_cmd_opcode;$/;"	t	typeref:enum:__anon1
+SIM_coreState	sim_api.h	/^} SIM_coreState;$/;"	t	typeref:struct:__anon5
+SRC_CORE	makefile	/^SRC_CORE = $(wildcard sim_core.c sim_core.cpp)$/;"	m
+SRC_GIVEN	makefile	/^SRC_GIVEN = sim_main.c sim_mem.c$/;"	m
+WB_stage	sim_core.c	/^void WB_stage () {$/;"	f
+WRITEBACK	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
+_SIM_API_H_	sim_api.h	5;"	d
+add_sub_branch	sim_mem.c	/^void add_sub_branch(char *line, int inst_num)$/;"	f
+addr	sim_mem.c	/^    uint32_t addr;$/;"	m	struct:__anon6	file:
+branch	sim_mem.c	/^void branch(char* line, int inst_num)$/;"	f
+cache	sim_mem.c	/^cache_line cache[8];$/;"	v
+cache_line	sim_mem.c	/^} cache_line;$/;"	t	typeref:struct:__anon6	file:
+cache_lookup	sim_mem.c	/^int cache_lookup(uint32_t addr)$/;"	f
+cmd	sim_api.h	/^    SIM_cmd cmd;      \/\/\/ The processed command in each pipe stage$/;"	m	struct:__anon4
+cmdStr	sim_api.h	/^static const char *cmdStr[] = { "NOP", "ADD", "SUB", "LOAD", "STORE", "BR", "BREQ", "BRNEQ" , "HALT"};$/;"	v
+data	sim_mem.c	/^int32_t data[100]; \/\/ where the data is kept$/;"	v
+data_start	sim_mem.c	/^uint32_t data_start; \/\/ the addr of the data block$/;"	v
+dst	sim_api.h	/^    int dst;     \/\/ Destination: Index of register$/;"	m	struct:__anon3
+forwarding	sim_core.c	/^bool forwarding;$/;"	v
+forwarding	sim_main.c	/^bool forwarding;$/;"	v
+get_data	sim_mem.c	/^void get_data(char* line, int data_i)$/;"	f
+get_dst	sim_mem.c	/^int get_dst(char *dst)$/;"	f
+get_dst_br	sim_mem.c	/^int get_dst_br(char *dst)$/;"	f
+get_inst	sim_mem.c	/^void get_inst(char *line, int inst_num)$/;"	f
+get_src1	sim_mem.c	/^int get_src1(char *src1)$/;"	f
+get_src2	sim_mem.c	/^int get_src2(char *src2)$/;"	f
+get_src2_imm	sim_mem.c	/^int get_src2_imm(char *src2, int inst_num)$/;"	f
+get_start	sim_mem.c	/^uint32_t get_start(char *line)$/;"	f
+halt	sim_mem.c	/^void halt(char *line, int inst_num)$/;"	f
+insert_to_cache	sim_mem.c	/^void insert_to_cache(uint32_t addr)$/;"	f
+instructions	sim_mem.c	/^SIM_cmd instructions[100]; \/\/ where the instructions are kept$/;"	v
+isSrc2Imm	sim_api.h	/^    bool isSrc2Imm; \/\/ Is src2 an immediate value and not a register index$/;"	m	struct:__anon3
+load_store	sim_mem.c	/^void load_store(char* line, int inst_num)$/;"	f
+main	sim_main.c	/^int main(int argc, char const *argv[]) {$/;"	f
+opcode	sim_api.h	/^    SIM_cmd_opcode opcode;$/;"	m	struct:__anon3
+pc	sim_api.h	/^    int32_t pc; \/\/\/ Value of the current program counter (at instruction fetch stage)$/;"	m	struct:__anon5
+pipeStage	sim_api.h	/^} pipeStage;$/;"	t	typeref:enum:__anon2
+pipeStageState	sim_api.h	/^    PipeStageState pipeStageState[SIM_PIPELINE_DEPTH];$/;"	m	struct:__anon5
+pipeStageStr	sim_api.h	/^static const char *pipeStageStr[] = { "IF", "ID", "EXE", "MEM", "WB" };$/;"	v
+prog_start	sim_mem.c	/^uint32_t prog_start; \/\/ the addr of the code block$/;"	v
+read_tick	sim_mem.c	/^uint32_t read_tick; \/\/ the clk tick of the first attempt to read$/;"	v
+regFile	sim_api.h	/^    int32_t regFile[SIM_REGFILE_SIZE]; \/\/\/ Values of each register in the register file$/;"	m	struct:__anon5
+split_reg	sim_core.c	/^bool split_reg;$/;"	v
+split_regfile	sim_main.c	/^bool split_regfile;$/;"	v
+src1	sim_api.h	/^    int src1;    \/\/ Source 1: Index of register$/;"	m	struct:__anon3
+src1Val	sim_api.h	/^    int32_t src1Val;  \/\/\/ Actual value of src1 (considering forwarding mux, etc.)$/;"	m	struct:__anon4
+src2	sim_api.h	/^    int32_t src2;    \/\/ Source 2: Index of register OR immediate (see 'isSrc2Imm')$/;"	m	struct:__anon3
+src2Val	sim_api.h	/^    int32_t src2Val;  \/\/\/ Actual value of src2 (considering forwarding mux, etc.)$/;"	m	struct:__anon4
+state	sim_core.c	/^SIM_coreState state;$/;"	v
+ticks	sim_mem.c	/^    uint32_t ticks; \/\/ for LRU$/;"	m	struct:__anon6	file:
+ticks	sim_mem.c	/^uint32_t ticks; \/\/ the current clk tick$/;"	v
+val	sim_mem.c	/^    int32_t val;$/;"	m	struct:__anon6	file:
+valid	sim_mem.c	/^    bool valid;$/;"	m	struct:__anon6	file:
