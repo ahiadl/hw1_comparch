@@ -19,13 +19,13 @@ DECODE	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__
 DetectHALT	sim_main.c	/^bool DetectHALT(SIM_coreState *state) {$/;"	f
 DumpCoreState	sim_main.c	/^void DumpCoreState(SIM_coreState *state) {$/;"	f
 EXECUTE	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
-EXE_stage	sim_core.c	/^void EXE_stage(SIM_coreState* state, PipeStageState* execute){$/;"	f
+EXE_stage	sim_core.c	/^void EXE_stage(SIM_coreState* state_inst, PipeStageState* execute){$/;"	f
 EXTRA_DEPS	makefile	/^EXTRA_DEPS = sim_api.h$/;"	m
 FETCH	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
-ID_stage	sim_core.c	/^void ID_stage (SIM_coreState* state, PipeStageState* decode){  $/;"	f
-IF_stage	sim_core.c	/^int IF_stage (uint32_t* addr, SIM_cmd *dst){$/;"	f
+ID_stage	sim_core.c	/^void ID_stage (SIM_coreState* state_inst, PipeStageState* decode){  $/;"	f
+IF_stage	sim_core.c	/^int IF_stage (uint32_t addr, SIM_cmd *dst){$/;"	f
 MEMORY	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
-MEM_stage	sim_core.c	/^int MEM_stage(SIM_coreState* state, SIM_coreState* next){$/;"	f
+MEM_stage	sim_core.c	/^void MEM_stage(SIM_coreState* state_inst, SIM_coreState* next){$/;"	f
 OBJ	makefile	/^OBJ = $(OBJ_GIVEN) $(OBJ_CORE)$/;"	m
 OBJ_CORE	makefile	/^OBJ_CORE = sim_core.o$/;"	m
 OBJ_GIVEN	makefile	/^OBJ_GIVEN = $(patsubst %.c,%.o,$(SRC_GIVEN))$/;"	m
@@ -45,23 +45,26 @@ SIM_cmd_opcode	sim_api.h	/^} SIM_cmd_opcode;$/;"	t	typeref:enum:__anon1
 SIM_coreState	sim_api.h	/^} SIM_coreState;$/;"	t	typeref:struct:__anon5
 SRC_CORE	makefile	/^SRC_CORE = $(wildcard sim_core.c sim_core.cpp)$/;"	m
 SRC_GIVEN	makefile	/^SRC_GIVEN = sim_main.c sim_mem.c$/;"	m
-WB_stage	sim_core.c	/^void WB_stage (SIM_coreState* state) {$/;"	f
+WB_stage	sim_core.c	/^void WB_stage (SIM_coreState* state_inst,SIM_coreState* next) {$/;"	f
 WRITEBACK	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
 _SIM_API_H_	sim_api.h	5;"	d
 add_sub_branch	sim_mem.c	/^void add_sub_branch(char *line, int inst_num)$/;"	f
 addr	sim_mem.c	/^    uint32_t addr;$/;"	m	struct:__anon6	file:
+address	sim_api.h	/^    uint32_t address;$/;"	m	struct:__anon4
 br_valid	sim_api.h	/^    bool    br_valid;$/;"	m	struct:__anon4
 branch	sim_mem.c	/^void branch(char* line, int inst_num)$/;"	f
 cache	sim_mem.c	/^cache_line cache[8];$/;"	v
 cache_line	sim_mem.c	/^} cache_line;$/;"	t	typeref:struct:__anon6	file:
 cache_lookup	sim_mem.c	/^int cache_lookup(uint32_t addr)$/;"	f
+check_memory	sim_core.c	/^int check_memory(SIM_coreState* state_inst){$/;"	f
 cmd	sim_api.h	/^    SIM_cmd cmd;      \/\/\/ The processed command in each pipe stage$/;"	m	struct:__anon4
 cmdStr	sim_api.h	/^static const char *cmdStr[] = { "NOP", "ADD", "SUB", "LOAD", "STORE", "BR", "BREQ", "BRNEQ" , "HALT"};$/;"	v
+copy_regFile	sim_core.c	/^void copy_regFile (int32_t* src, int32_t* dst){$/;"	f
 data	sim_mem.c	/^int32_t data[100]; \/\/ where the data is kept$/;"	v
 data_start	sim_mem.c	/^uint32_t data_start; \/\/ the addr of the data block$/;"	v
 dst	sim_api.h	/^    int dst;     \/\/ Destination: Index of register$/;"	m	struct:__anon3
 dstVal	sim_api.h	/^    int32_t dstVal;   \/\/\/ Value to be written to dst register.$/;"	m	struct:__anon4
-flush	sim_core.c	/^void flush (Sim_coreState* state){$/;"	f
+flush	sim_core.c	/^void flush (SIM_coreState* state_inst){$/;"	f
 forwarding	sim_core.c	/^bool forwarding;$/;"	v
 forwarding	sim_main.c	/^bool forwarding;$/;"	v
 get_data	sim_mem.c	/^void get_data(char* line, int data_i)$/;"	f
@@ -88,6 +91,10 @@ pipeStageStr	sim_api.h	/^static const char *pipeStageStr[] = { "IF", "ID", "EXE"
 prog_start	sim_mem.c	/^uint32_t prog_start; \/\/ the addr of the code block$/;"	v
 read_tick	sim_mem.c	/^uint32_t read_tick; \/\/ the clk tick of the first attempt to read$/;"	v
 regFile	sim_api.h	/^    int32_t regFile[SIM_REGFILE_SIZE]; \/\/\/ Values of each register in the register file$/;"	m	struct:__anon5
+reset_cmd	sim_core.c	/^void reset_cmd (SIM_cmd* cmd){$/;"	f
+reset_pipe_stage	sim_core.c	/^void reset_pipe_stage (PipeStageState* pipe){$/;"	f
+reset_regFile	sim_core.c	/^void reset_regFile (int32_t* regFile){$/;"	f
+reset_state	sim_core.c	/^void reset_state (SIM_coreState* state_inst){$/;"	f
 split_reg	sim_core.c	/^bool split_reg;$/;"	v
 split_regfile	sim_main.c	/^bool split_regfile;$/;"	v
 src1	sim_api.h	/^    int src1;    \/\/ Source 1: Index of register$/;"	m	struct:__anon3
