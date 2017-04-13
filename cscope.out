@@ -1,4 +1,4 @@
-cscope 15 $HOME/hw/hw1_compm               0000122726
+cscope 15 $HOME/hw/hw1_compm -q 0000001583 0000125346
 	@sim_api.h
 
 4 #i‚de‡
@@ -173,17 +173,29 @@ SIM_cmd
 	g§c2VÆ
 ;
 
-55 } 
+55 
+öt32_t
+ 
+	gd°VÆ
+;
+
+56 
+boﬁ
+ 
+	gbr_vÆid
+;
+
+57 } 
 	tPùeSègeSèã
 ;
 
-59 
+61 
 öt32_t
  
 	gpc
 ;
 
-60 
+62 
 öt32_t
  
 	gªgFûe
@@ -191,7 +203,7 @@ SIM_cmd
 SIM_REGFILE_SIZE
 ];
 
-61 
+63 
 PùeSègeSèã
  
 	gpùeSègeSèã
@@ -199,29 +211,29 @@ PùeSègeSèã
 SIM_PIPELINE_DEPTH
 ];
 
-62 } 
+64 } 
 	tSIM_c‹eSèã
 ;
 
-65 c⁄° *
+67 c⁄° *
 	gcmdSå
 [] = { "NOP", "ADD", "SUB", "LOAD", "STORE", "BR", "BREQ", "BRNEQ" , "HALT"};
 
-68 c⁄° *
+70 c⁄° *
 	gpùeSègeSå
 [] = { "IF", "ID", "EXE", "MEM", "WB" };
 
-89 
+91 
 SIM_MemRe£t
 (c⁄° *
 memImgF«me
 );
 
-94 
+96 
 SIM_MemClkTick
 ();
 
-103 
+105 
 SIM_MemD©aRód
 (
 uöt32_t
@@ -233,7 +245,7 @@ addr
 d°
 );
 
-109 
+111 
 SIM_MemD©aWrôe
 (
 uöt32_t
@@ -245,7 +257,7 @@ addr
 vÆ
 );
 
-117 
+119 
 SIM_MemIn°Ród
 (
 uöt32_t
@@ -257,15 +269,15 @@ SIM_cmd
 d°
 );
 
-131 
+133 
 SIM_C‹eRe£t
 ();
 
-136 
+138 
 SIM_C‹eClkTick
 ();
 
-142 
+144 
 SIM_C‹eGëSèã
 (
 SIM_c‹eSèã
@@ -273,7 +285,7 @@ SIM_c‹eSèã
 curSèã
 );
 
-145 
+147 
 DumpC‹eSèã
 (
 SIM_c‹eSèã
@@ -281,7 +293,7 @@ SIM_c‹eSèã
 °©e
 );
 
-147 #ifde‡
+149 #ifde‡
 __˝lu•lus
 
 
@@ -309,25 +321,157 @@ SIM_c‹eSèã
 	g°©e
 ;
 
-19 
-	$SIM_C‹eRe£t
-() {
+10 
+	gmem_ªady
+;
 
-21 
+21 
+	$ö£πNOP
+ (
+PùeSègeSèã
+* 
+°age
+){
+
+22 
+°age
+->
+cmd
+.
+›code
+ = 
+NOP
+;
+
+23 
+°age
+->
+cmd
+.
+§c1
+ = 0;
+
+24 
+°age
+->
+cmd
+.
+§c2
+ = 0;
+
+25 
+°age
+->
+cmd
+.
+isSrc2Imm
+ = 
+Ál£
+;
+
+26 
+°age
+->
+cmd
+.
+d°
+ = 0;
+
+27 
+°age
+->
+§c1VÆ
+ = 0;
+
+28 
+°age
+->
+§c2VÆ
+ = 0;
+
+29 
+°age
+->
+d°VÆ
+ = 0;
+
+30 
+°age
+->
+br_vÆid
+ = 
+Ál£
+;
+
+31 
 	}
 }
 
-26 
+33 
+	$Êush
+ (
+Sim_c‹eSèã
+* 
+°©e
+){
+
+34 
+	`ö£πNOP
+(
+°©e
+->
+pùeSègeSèã
+[
+EXECUTE
+]);
+
+35 
+	`ö£πNOP
+(
+°©e
+->
+pùeSègeSèã
+[
+DECODE
+]);
+
+36 
+	`ö£πNOP
+(
+°©e
+->
+pùeSègeSèã
+[
+FETCH
+]);
+
+37 
+	}
+}
+
+39 
+	$SIM_C‹eRe£t
+() {
+
+41 
+	}
+}
+
+46 
 	$SIM_C‹eClkTick
 () {
 
-27 
+47 
 SIM_c‹eSèã
  
 √xt_°©e
 ;
 
-28 
+48 i‡(!
+	`MEM_°age
+()){
+
+49 
 √xt_°©e
 ->
 pc
@@ -343,7 +487,7 @@ FETCH
 cmd
 );
 
-29 
+50 
 	`ID_°age
  (&
 °©e
@@ -355,13 +499,45 @@ FETCH
 √xt_°©e
 .pùeSègeSèã[
 DECODE
-])
+],&°©e.
+ªgFûe
+ );
 
-33 
+51 
+	`WB_°age
+();
+
+53 
+√xt_°©e
+ = 
+°©e
+;
+
+54 
+	`WB_°age
+();
+
+55 
+	`ö£πNOP
+(&
+√xt_°©e
+.
+pùeSègeSèã
+[
+WB
+]);
+
+57 
+°©e
+ = 
+√xt_°©e
+;
+
+58 
 	}
 }
 
-39 
+64 
 	$SIM_C‹eGëSèã
 (
 SIM_c‹eSèã
@@ -369,11 +545,11 @@ SIM_c‹eSèã
 curSèã
 ) {
 
-40 
+65 
 	}
 }
 
-43 
+68 
 	$IF_°age
  (
 uöt32_t
@@ -385,7 +561,7 @@ SIM_cmd
 d°
 ){
 
-44 
+69 
 	`SIM_MemIn°Ród
 (*
 addr
@@ -393,43 +569,391 @@ addr
 d°
 );
 
-45  *
+70  *
 addr
 ;
 
-46 
+71 
 	}
 }
 
-48 
+73 
 	$ID_°age
- () {
+ (
+SIM_c‹eSèã
+* 
+°©e
+, 
+PùeSègeSèã
+* 
+decode
+){
 
-51 
+74 
+decode
+->
+cmd
+ = 
+°©e
+->
+pùeSègeSèã
+[
+FETCH
+].cmd;
+
+75 
+decode
+->
+§c1VÆ
+ = 
+°©e
+->
+ªgFIÀ
+[°©e->
+pùeSègeSèã
+[
+FETCH
+].
+cmd
+.
+§c1
+];
+
+76 
+decode
+->
+§c2VÆ
+ = 
+°©e
+->
+pùeSègeSèã
+[
+FETCH
+].
+cmd
+.
+isSrc2Imm
+ ? 0 : sèã->
+ªgFIÀ
+[°©e->pùeSègeSèã[FETCH].cmd.
+§c2
+];
+
+77 
 	}
 }
 
-53 
+79 
 	$EXE_°age
-() {
+(
+SIM_c‹eSèã
+* 
+°©e
+, 
+PùeSègeSèã
+* 
+execuã
+){
 
-56 
+80 
+execuã
+->
+cmd
+ = 
+°©e
+->
+pùeSègeSèã
+[
+DECODE
+].cmd;
+
+81 
+execuã
+->
+cmd
+.
+›code
+){
+
+82 
+CMD_ADD
+:
+
+83 
+execuã
+->
+d°VÆ
+ =Éxecuã->
+§c1VÆ
+ +Éxecuã->
+§c2VÆ
+;
+
+85 
+CMD_SUB
+:
+
+86 
+execuã
+->
+d°VÆ
+ =Éxecuã->
+§c1VÆ
+ -Éxecuã->
+§c2VÆ
+;
+
+88 
+CMD_BREQ
+:
+
+89 
+execuã
+->
+br_vÆid
+ = (execuã->
+§c1VÆ
+=Ûxecuã->
+§c2VÆ
+);
+
+91 
+CMD_BEQ
+:
+
+92 
+execuã
+->
+br_vÆid
+ = (execuã->
+§c1VÆ
+!Ûxecuã->
+§c2VÆ
+);
+
+94 
+CMD_BR
+:
+
+95 
+execuã
+->
+br_vÆid
+ = 
+åue
+;
+
+98 
 	}
 }
 
-59 
+101 
 	$MEM_°age
-(){
+(
+SIM_c‹eSèã
+* 
+°©e
+, SIM_c‹eSèã* 
+√xt
+){
 
-62 
+102 
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+cmd
+ = 
+°©e
+->pùeSègeSèã[
+EXECUTE
+].cmd;
+
+103 
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+cmd
+.
+›code
+){
+
+104 
+CMD_LOAD
+:
+
+105 
+öt32_t
+ 
+addªss
+ = (
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+cmd
+.
+isSrc2Imm
+Ë?Çext->pùeSègeSèã[MEMORY].
+§c1VÆ
+ +Çext->pùeSègeSèã[MEMORY].cmd.
+§c2
+ :
+
+106 
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+§c1VÆ
+ +Çext->pùeSègeSèã[MEMORY].
+§c2VÆ
+;
+
+107  
+	`SIM_MemD©aRód
+(
+addªss
+, &
+√xt
+->
+ªgFûe
+[√xt->
+pùeSègeSèã
+[
+MEMORY
+].
+cmd
+.
+d°
+]);
+
+109 
+CMD_STORE
+:
+
+110 
+öt32_t
+ 
+addªss
+ = (
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+cmd
+.
+isSrc2Imm
+Ë?Çext->pùeSègeSèã[MEMORY].
+§c1VÆ
+ +Çext->pùeSègeSèã[MEMORY].cmd.
+§c2
+ :
+
+111 
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+§c1VÆ
+ +Çext->pùeSègeSèã[MEMORY].
+§c2VÆ
+;
+
+112 
+	`SIM_MemD©aWrôe
+(
+addªss
+, &
+√xt
+->
+ªgFûe
+[√xt->
+pùeSègeSèã
+[
+MEMORY
+].
+cmd
+.
+d°
+]);
+
+114 
+CMD_BR
+:
+
+115 
+CMD_BEQ
+:
+
+116 
+CMD_BNEQ
+:
+
+117 i‡(
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+br_vÆid
+){
+
+118 
+√xt
+->
+pc
+ = 
+°©e
+->p¯- 8 +Çext->
+ªgFûe
+[√xt->
+pùeSègeSèã
+[
+MEMORY
+].
+cmd
+.
+d°
+];
+
+119 
+	`Êush
+();
+
+121 
+√xt
+->
+pc
+ = (next->pc) + 4;
+
+126 
 	}
 }
 
-65 
+130 
 	$WB_°age
- () {
+ (
+SIM_c‹eSèã
+* 
+°©e
+) {
 
-68 
+135 
 	}
 }
 

@@ -54,6 +54,7 @@ typedef struct {
     int32_t src2Val;  /// Actual value of src2 (considering forwarding mux, etc.)
     int32_t dstVal;   /// Value to be written to dst register.
     bool    br_valid;
+    uint32_t address;
 } PipeStageState;
 
 /* A structure to return information about the currect simulator state */
