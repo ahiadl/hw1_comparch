@@ -30,6 +30,9 @@ enum {
     STALLED     = 1,
 };
 
+#define DEBUG 0
+
+
 void insertNOP (PipeStageState* stage){
     stage->cmd.opcode    = CMD_NOP;
     stage->cmd.src1      = 0;
@@ -48,31 +51,18 @@ void flush (SIM_coreState* state_inst){
     insertNOP(&state_inst->pipeStageState[FETCH]);
 }
 
-int check_memory(SIM_coreState* state_inst){
-    printf("mem ready start: %d\n",mem_ready);
-    if (mem_ready == READY) return READY;
-    printf("inside mem chk: opcode: %d dst :%d\n", state_inst->pipeStageState[MEMORY].cmd.opcode, state_inst->pipeStageState[MEMORY].cmd.dst);        
-    mem_ready = SIM_MemDataRead(state_inst->pipeStageState[MEMORY].address, &state_inst->pipeStageState[MEMORY].dstVal);
-    printf("mem ready end: %d\n",mem_ready);
-    return NOT_READY;
-}
-
 int IF_stage (SIM_coreState* state_inst, SIM_cmd *dst){
     SIM_MemInstRead(state_inst->pc+4, dst);
     state_inst->pipeStageState[FETCH].pc_4 = state_inst->pc+4;
-    printf("IF_stage: pc_4: 0x%x, pc: 0x%x\n",state_inst->pipeStageState[FETCH].pc_4, state_inst->pc);
+    if(DEBUG) printf("IF_stage: pc_4: 0x%x, pc: 0x%x\n",state_inst->pipeStageState[FETCH].pc_4, state_inst->pc);
     return state_inst->pc+4;
 }
 
-void ID_stage (SIM_coreState* state_inst, PipeStageState* decode){  
-    *decode = state_inst->pipeStageState[FETCH];
-    decode->src1Val = state_inst->regFile[state_inst->pipeStageState[FETCH].cmd.src1];
-    decode->src2Val = state_inst->pipeStageState[FETCH].cmd.isSrc2Imm ? state_inst->pipeStageState[FETCH].cmd.src2 : state_inst->regFile[state_inst->pipeStageState[FETCH].cmd.src2];
-    decode->dstVal  = (CMD_STORE == state_inst->pipeStageState[FETCH].cmd.opcode) ? state_inst->regFile[state_inst->pipeStageState[FETCH].cmd.dst] : 0 ;
-}
-
-void stall (SIM_coreState* state_inst){
-    state_inst->pc -= 4;
+void ID_stage (SIM_coreState* state_inst, SIM_coreState* next ){  
+    next->pipeStageState[DECODE] = state_inst->pipeStageState[FETCH];
+    next->pipeStageState[DECODE].src1Val = next->regFile[state_inst->pipeStageState[FETCH].cmd.src1];
+    next->pipeStageState[DECODE].src2Val = state_inst->pipeStageState[FETCH].cmd.isSrc2Imm ? state_inst->pipeStageState[FETCH].cmd.src2 : next->regFile[state_inst->pipeStageState[FETCH].cmd.src2];
+    next->pipeStageState[DECODE].dstVal  = (CMD_STORE == state_inst->pipeStageState[FETCH].cmd.opcode) ? next->regFile[state_inst->pipeStageState[FETCH].cmd.dst] : 0 ;
 }
 
 void EXE_stage(SIM_coreState* state_inst, PipeStageState* execute){
@@ -119,16 +109,15 @@ void MEM_stage(SIM_coreState* state_inst, SIM_coreState* next){
 }
 
 void branch_exec (SIM_coreState* state_inst){
-
-    printf("pc_4 values: IF 0x%x ID 0x%x EXE 0x%x MEM 0x%x WB 0x%x \n", state_inst->pipeStageState[FETCH].pc_4,state_inst->pipeStageState[DECODE].pc_4,state_inst->pipeStageState[EXECUTE].pc_4,state_inst->pipeStageState[MEMORY].pc_4,state_inst->pipeStageState[WRITEBACK].pc_4);
+    if(DEBUG) printf("pc_4 values: IF 0x%x ID 0x%x EXE 0x%x MEM 0x%x WB 0x%x \n", state_inst->pipeStageState[FETCH].pc_4,state_inst->pipeStageState[DECODE].pc_4,state_inst->pipeStageState[EXECUTE].pc_4,state_inst->pipeStageState[MEMORY].pc_4,state_inst->pipeStageState[WRITEBACK].pc_4);
      if (state_inst->pipeStageState[MEMORY].br_valid){
         decode_depend_on_pipe = 0;
         mem_ready = READY;
         state_inst->pc = state_inst->pipeStageState[MEMORY].pc_4 + state_inst->regFile[state_inst->pipeStageState[MEMORY].cmd.dst];
-        printf ("pc_4: 0x%x; dst: 0x%x\n", state_inst->pipeStageState[MEMORY].pc_4,  state_inst->regFile[state_inst->pipeStageState[MEMORY].cmd.dst]);
-        printf ("branch address: 0x%x;\n", state_inst->pc);
+        if(DEBUG) printf ("pc_4: 0x%x; dst: 0x%x\n", state_inst->pipeStageState[MEMORY].pc_4,  state_inst->regFile[state_inst->pipeStageState[MEMORY].cmd.dst]);
+        if(DEBUG) printf ("branch address: 0x%x;\n", state_inst->pc);
         flush(state_inst);
-        printf ("flushed!\n");
+        if(DEBUG) printf ("flushed!\n");
      }
 }
 
@@ -146,7 +135,7 @@ void write_to_regfile (SIM_coreState* state_inst){
 
 void WB_stage (SIM_coreState* state_inst,SIM_coreState* next) {
     next->pipeStageState[WRITEBACK] = state_inst->pipeStageState[MEMORY];
-    if (split_regfile) write_to_regfile (next);
+    if (split_regfile) write_to_regfile(next);
 }
 
 void reset_cmd (SIM_cmd* cmd){
@@ -222,7 +211,7 @@ int check_depend_on_stage (SIM_coreState* state_inst,int low_stage, int high_sta
 int check_decode_depend(SIM_coreState* state_inst){
     int decode_vs_execute   = check_depend_on_stage(state_inst, DECODE, EXECUTE);
     int decode_vs_memory    = check_depend_on_stage(state_inst, DECODE, MEMORY);
-    int decode_vs_writeback = check_depend_on_stage(state_inst, DECODE, WRITEBACK);
+    int decode_vs_writeback = split_regfile ? 0 : check_depend_on_stage(state_inst, DECODE, WRITEBACK);
     return (decode_vs_memory || decode_vs_execute || decode_vs_writeback);
 }
 
@@ -239,36 +228,36 @@ void shift_backwards_pipe(SIM_coreState* state_inst){
   This function is expected to update the core pipeline given a clock cycle event.
 */
 void SIM_CoreClkTick() {
-    printf("------------new_tick--------------\n");
+    if(DEBUG) printf("\n------------new_tick--------------\n");
    
-    SIM_coreState next_state;                           ////////////////////////////////////
-    reset_state(&next_state);                           ///
-    if (!split_regfile) write_to_regfile (&state);      ///these lines prepare next_state for working 
-    copy_regFile (state.regFile, next_state.regFile);   ///
-    branch_exec(&state);
-    next_state.pc = state.pc;                           ///////////////////////////////////
+    SIM_coreState next_state;                                                       ////////////////////////////////////
+    reset_state(&next_state);                                                       ///
+    if (!split_regfile) write_to_regfile (&state);                                  ///these lines prepare next_state for working 
+    copy_regFile (state.regFile, next_state.regFile);                               ///
+    branch_exec(&state);                                                            ///this line flushes the pipe in case of branch  
+    next_state.pc = state.pc;                                                       ///////////////////////////////////
 
 
     int pipe_stalled = NOT_STALLED;
-    printf("246 next.pc: 0x%x \n", next_state.pc);                                 // if we're still waiting for memory response take the pipe bacwards in order to be forwarded and update
+    if(DEBUG) printf("246 next.pc: 0x%x \n", next_state.pc);                                  // if we're still waiting for memory response take the pipe bacwards in order to be forwarded and update
     if (mem_ready == NOT_READY) {
         shift_backwards_pipe(&state);
         next_state.pc -= 4;
         pipe_stalled = STALLED;
     }
-    else if(decode_depend_on_pipe){                                             // rewind decode stage in case it shouldn't be forwarded (data hazards)
+    else if(decode_depend_on_pipe){                                                 // rewind decode stage in case it shouldn't be forwarded (data hazards)
         next_state.pc -= 4;
         state.pipeStageState[FETCH] = state.pipeStageState[DECODE]; 
     }
-    printf ("mem_ready: %d, ddop: %d\n", mem_ready, decode_depend_on_pipe); 
-    printf("257 next.pc: 0x%x \n", next_state.pc);
-    WB_stage(&state, &next_state);                                              ////////////////////////////////
-    MEM_stage(&state, &next_state);                                             ///
-    EXE_stage(&state, &next_state.pipeStageState[EXECUTE]);                     ///continue the pipe
-    ID_stage(&state, &next_state.pipeStageState[DECODE]);                       ///
-    next_state.pc = IF_stage (&next_state,&next_state.pipeStageState[FETCH].cmd);  ////////////////////////////////
-    printf("263 next.pc: 0x%x \n", next_state.pc); 
-    if(decode_depend_on_pipe && NOT_STALLED == pipe_stalled){                                    // if we have data hazard and no load blocking, stall IF and ID stages as well as NOP to EXE
+    if(DEBUG) printf ("mem_ready: %d, ddop: %d\n", mem_ready, decode_depend_on_pipe); 
+    if(DEBUG) printf("257 next.pc: 0x%x \n", next_state.pc);
+    WB_stage(&state, &next_state);                                                  ////////////////////////////////
+    MEM_stage(&state, &next_state);                                                 ///
+    EXE_stage(&state, &next_state.pipeStageState[EXECUTE]);                         ///continue the pipe
+    ID_stage(&state, &next_state);                                                  ///
+    next_state.pc = IF_stage (&next_state,&next_state.pipeStageState[FETCH].cmd);   ////////////////////////////////
+    if(DEBUG) printf("263 next.pc: 0x%x \n", next_state.pc); 
+    if(decode_depend_on_pipe && NOT_STALLED == pipe_stalled){                       /// if we have data hazard and no load blocking, stall IF and ID stages as well as NOP to EXE
             insertNOP(&next_state.pipeStageState[EXECUTE]);                         
     }
 
@@ -277,8 +266,8 @@ void SIM_CoreClkTick() {
     }
     else
         decode_depend_on_pipe = NOT_DEPEND;
-    printf("273 next.pc: 0x%x \n", next_state.pc); 
-    state = next_state; //TODO: think if should be placed inside the if.
+    if(DEBUG) printf("273 next.pc: 0x%x \n", next_state.pc); 
+    state = next_state; 
 }
 
 
@@ -291,100 +280,5 @@ void SIM_CoreClkTick() {
 void SIM_CoreGetState(SIM_coreState *curState) {
    *curState = state;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
