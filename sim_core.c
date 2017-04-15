@@ -6,7 +6,7 @@
 // Global variables
 SIM_coreState state;
 int mem_ready;
-int decode_depend_on_pipe;
+int hazard_detected;
 /*! SIM_CoreReset: Reset the processor core simulator machine to start new simulation
   Use this API to initialize the processor core simulator's data structures.
   The simulator machine must complete this call with these requirements met:
@@ -21,8 +21,8 @@ enum {
 };
 
 enum {
-    NOT_DEPEND = 0,
-    DEPEND     = 1,
+    NO_HAZARD  = 0,
+    HAZARD     = 1,
 };
 
 enum {
@@ -51,8 +51,8 @@ void flush (SIM_coreState* state_inst){
     insertNOP(&state_inst->pipeStageState[FETCH]);
 }
 
-int IF_stage (SIM_coreState* state_inst, SIM_cmd *dst){
-    SIM_MemInstRead(state_inst->pc+4, dst);
+int IF_stage (SIM_coreState* state_inst){
+    SIM_MemInstRead(state_inst->pc+4,&state_inst->pipeStageState[FETCH].cmd);
     state_inst->pipeStageState[FETCH].pc_4 = state_inst->pc+4;
     if(DEBUG) printf("IF_stage: pc_4: 0x%x, pc: 0x%x\n",state_inst->pipeStageState[FETCH].pc_4, state_inst->pc);
     return state_inst->pc+4;
@@ -65,23 +65,52 @@ void ID_stage (SIM_coreState* state_inst, SIM_coreState* next ){
     next->pipeStageState[DECODE].dstVal  = (CMD_STORE == state_inst->pipeStageState[FETCH].cmd.opcode) ? next->regFile[state_inst->pipeStageState[FETCH].cmd.dst] : 0 ;
 }
 
-void EXE_stage(SIM_coreState* state_inst, PipeStageState* execute){
-    *execute = state_inst->pipeStageState[DECODE]; 
-    switch(execute->cmd.opcode){
+void search_forwarding (SIM_coreState* state_inst){
+    int src1 = state_inst->pipeStageState[EXECUTE].cmd.src1;
+    int src2 = state_inst->pipeStageState[EXECUTE].cmd.src2;
+    int dst  = state_inst->pipeStageState[EXECUTE].cmd.dst;
+    int* src1Val = &state_inst->pipeStageState[EXECUTE].src1Val;
+    int* src2Val = &state_inst->pipeStageState[EXECUTE].src2Val;
+    int* dstVal  = &state_inst->pipeStageState[EXECUTE].dstVal;
+    
+    switch (state_inst->pipeStageState[EXECUTE].cmd.opcode){
+        case CMD_STORE: 
         case CMD_ADD:
-	        execute->dstVal = execute->src1Val + execute->src2Val;
+        case CMD_SUB:
+        case CMD_BREQ:
+        case CMD_BRNEQ:
+        case CMD_LOAD:
+            *src1Val = (src1 == state_inst->pipeStageState[MEMORY].cmd.dst)    ? state_inst->pipeStageState[MEMORY].dstVal    :
+                       (src1 == state_inst->pipeStageState[WRITEBACK].cmd.dst) ? state_inst->pipeStageState[WRITEBACK].dstVal : *src1Val;
+            *src2Val = (src2 == state_inst->pipeStageState[MEMORY].cmd.dst)    ? state_inst->pipeStageState[MEMORY].dstVal    :
+                       (src2 == state_inst->pipeStageState[WRITEBACK].cmd.dst) ? state_inst->pipeStageState[WRITEBACK].dstVal : *src2Val;    
+        case CMD_BR:
+            *dstVal  = (dst == state_inst->pipeStageState[MEMORY].cmd.dst)    ? state_inst->pipeStageState[MEMORY].dstVal    : 
+                       (dst == state_inst->pipeStageState[WRITEBACK].cmd.dst) ? state_inst->pipeStageState[WRITEBACK].dstVal : *dstVal;
+            break;
+        default:
+            break;
+    }
+}
+
+void EXE_stage(SIM_coreState* state_inst, SIM_coreState* next ){
+    next->pipeStageState[EXECUTE] = state_inst->pipeStageState[DECODE];
+    if (forwarding) search_forwarding(next);
+    switch(next->pipeStageState[EXECUTE].cmd.opcode){
+        case CMD_ADD:
+	        next->pipeStageState[EXECUTE].dstVal = next->pipeStageState[EXECUTE].src1Val + next->pipeStageState[EXECUTE].src2Val;
 	        break;	
 	    case CMD_SUB:
-            execute->dstVal = execute->src1Val - execute->src2Val;
+            next->pipeStageState[EXECUTE].dstVal = next->pipeStageState[EXECUTE].src1Val - next->pipeStageState[EXECUTE].src2Val;
             break;	
 	    case CMD_BREQ:
-	        execute->br_valid = (execute->src1Val==execute->src2Val);
+	        next->pipeStageState[EXECUTE].br_valid = (next->pipeStageState[EXECUTE].src1Val == next->pipeStageState[EXECUTE].src2Val);
 	        break;
 	    case CMD_BRNEQ:
-	        execute->br_valid = (execute->src1Val!=execute->src2Val);
+	        next->pipeStageState[EXECUTE].br_valid = (next->pipeStageState[EXECUTE].src1Val != next->pipeStageState[EXECUTE].src2Val);
 	        break;
 	    case CMD_BR:
-	        execute->br_valid = true;
+	        next->pipeStageState[EXECUTE].br_valid = true;
             break;
 	    default: break;
     }
@@ -111,7 +140,7 @@ void MEM_stage(SIM_coreState* state_inst, SIM_coreState* next){
 void branch_exec (SIM_coreState* state_inst){
     if(DEBUG) printf("pc_4 values: IF 0x%x ID 0x%x EXE 0x%x MEM 0x%x WB 0x%x \n", state_inst->pipeStageState[FETCH].pc_4,state_inst->pipeStageState[DECODE].pc_4,state_inst->pipeStageState[EXECUTE].pc_4,state_inst->pipeStageState[MEMORY].pc_4,state_inst->pipeStageState[WRITEBACK].pc_4);
      if (state_inst->pipeStageState[MEMORY].br_valid){
-        decode_depend_on_pipe = 0;
+        hazard_detected = NO_HAZARD;
         mem_ready = READY;
         state_inst->pc = state_inst->pipeStageState[MEMORY].pc_4 + state_inst->regFile[state_inst->pipeStageState[MEMORY].cmd.dst];
         if(DEBUG) printf ("pc_4: 0x%x; dst: 0x%x\n", state_inst->pipeStageState[MEMORY].pc_4,  state_inst->regFile[state_inst->pipeStageState[MEMORY].cmd.dst]);
@@ -169,8 +198,8 @@ void reset_state (SIM_coreState* state_inst){
 }
 
 int SIM_CoreReset(void) {
-    mem_ready = 0;
-    decode_depend_on_pipe = 0;
+    mem_ready = READY;
+    hazard_detected = NO_HAZARD;
     reset_state(&state);
     SIM_MemInstRead(state.pc, &state.pipeStageState[FETCH].cmd);
     return 0;
@@ -186,7 +215,7 @@ int check_depend_on_stage (SIM_coreState* state_inst,int low_stage, int high_sta
     int var2_vs_high_dst = 0;
     int dst_vs_high_dst  = 0;
     int high_stage_cmd = state_inst->pipeStageState[high_stage].cmd.opcode;
-    if (high_stage_cmd != CMD_LOAD && high_stage_cmd != CMD_ADD && high_stage_cmd != CMD_SUB) return NOT_DEPEND;
+    if (high_stage_cmd != CMD_LOAD && high_stage_cmd != CMD_ADD && high_stage_cmd != CMD_SUB) return NO_HAZARD;
     switch (state_inst->pipeStageState[low_stage].cmd.opcode){                         
      case CMD_BR:
          var1_vs_high_dst = (state_inst->pipeStageState[low_stage].cmd.dst == state_inst->pipeStageState[high_stage].cmd.dst);
@@ -204,11 +233,12 @@ int check_depend_on_stage (SIM_coreState* state_inst,int low_stage, int high_sta
      default: 
         break;
   }
-  return (var1_vs_high_dst || var2_vs_high_dst || dst_vs_high_dst ) ? DEPEND : NOT_DEPEND;
+  return (var1_vs_high_dst || var2_vs_high_dst || dst_vs_high_dst ) ? HAZARD : NO_HAZARD;
 }
 
 
 int check_decode_depend(SIM_coreState* state_inst){
+    if (forwarding) return NO_HAZARD;
     int decode_vs_execute   = check_depend_on_stage(state_inst, DECODE, EXECUTE);
     int decode_vs_memory    = check_depend_on_stage(state_inst, DECODE, MEMORY);
     int decode_vs_writeback = split_regfile ? 0 : check_depend_on_stage(state_inst, DECODE, WRITEBACK);
@@ -221,6 +251,32 @@ void shift_backwards_pipe(SIM_coreState* state_inst){
     state_inst->pipeStageState[EXECUTE] = state_inst->pipeStageState[MEMORY];
     insertNOP(&state_inst->pipeStageState[MEMORY]);
 }
+
+int check_load_hazard (SIM_coreState* state_inst){
+    if (!(state_inst->pipeStageState[EXECUTE].cmd.opcode == CMD_LOAD)) return NO_HAZARD;
+    int src1 = state_inst->pipeStageState[DECODE].cmd.src1;
+    int src2 = state_inst->pipeStageState[DECODE].cmd.src2;
+    int dst  = state_inst->pipeStageState[DECODE].cmd.dst;
+    int dst_exe  = state_inst->pipeStageState[EXECUTE].cmd.dst;
+    switch (state_inst->pipeStageState[DECODE].cmd.opcode){
+        case CMD_STORE:
+        case CMD_BREQ: 
+        case CMD_BRNEQ: 
+            return ((src1 == dst_exe) || (src2 == dst_exe) || (dst == dst_exe) ? HAZARD : NO_HAZARD);          
+        case CMD_LOAD:
+        case CMD_ADD:
+        case CMD_SUB:
+            return ((src1 == dst_exe) || (src2 == dst_exe) ? HAZARD : NO_HAZARD);          
+        case CMD_BR:
+            return ((dst == dst_exe) ? HAZARD : NO_HAZARD);          
+        default:
+            break;
+    }
+    return NO_HAZARD; 
+}
+
+
+
 
 
 /*******************************************************************************************/
@@ -237,7 +293,6 @@ void SIM_CoreClkTick() {
     branch_exec(&state);                                                            ///this line flushes the pipe in case of branch  
     next_state.pc = state.pc;                                                       ///////////////////////////////////
 
-
     int pipe_stalled = NOT_STALLED;
     if(DEBUG) printf("246 next.pc: 0x%x \n", next_state.pc);                                  // if we're still waiting for memory response take the pipe bacwards in order to be forwarded and update
     if (mem_ready == NOT_READY) {
@@ -245,27 +300,28 @@ void SIM_CoreClkTick() {
         next_state.pc -= 4;
         pipe_stalled = STALLED;
     }
-    else if(decode_depend_on_pipe){                                                 // rewind decode stage in case it shouldn't be forwarded (data hazards)
+    else if(hazard_detected == HAZARD){                                                 // rewind decode stage in case it shouldn't be forwarded (data hazards)
         next_state.pc -= 4;
         state.pipeStageState[FETCH] = state.pipeStageState[DECODE]; 
     }
-    if(DEBUG) printf ("mem_ready: %d, ddop: %d\n", mem_ready, decode_depend_on_pipe); 
+
+    if(DEBUG) printf ("mem_ready: %d, ddop: %d\n", mem_ready, hazard_detected); 
     if(DEBUG) printf("257 next.pc: 0x%x \n", next_state.pc);
+
     WB_stage(&state, &next_state);                                                  ////////////////////////////////
     MEM_stage(&state, &next_state);                                                 ///
-    EXE_stage(&state, &next_state.pipeStageState[EXECUTE]);                         ///continue the pipe
+    EXE_stage(&state, &next_state);                                                 ///continue the pipe
     ID_stage(&state, &next_state);                                                  ///
-    next_state.pc = IF_stage (&next_state,&next_state.pipeStageState[FETCH].cmd);   ////////////////////////////////
+    next_state.pc = IF_stage (&next_state);                                         ////////////////////////////////
+
+    
     if(DEBUG) printf("263 next.pc: 0x%x \n", next_state.pc); 
-    if(decode_depend_on_pipe && NOT_STALLED == pipe_stalled){                       /// if we have data hazard and no load blocking, stall IF and ID stages as well as NOP to EXE
+    if((HAZARD == hazard_detected) && (NOT_STALLED == pipe_stalled)){                       /// if we have data hazard and no load blocking, stall IF and ID stages as well as NOP to EXE
             insertNOP(&next_state.pipeStageState[EXECUTE]);                         
     }
 
-    if(check_decode_depend(&next_state)){   
-        decode_depend_on_pipe = DEPEND;
-    }
-    else
-        decode_depend_on_pipe = NOT_DEPEND;
+    hazard_detected = (check_decode_depend(&next_state) || check_load_hazard(&next_state)) ? HAZARD : NO_HAZARD;   
+    
     if(DEBUG) printf("273 next.pc: 0x%x \n", next_state.pc); 
     state = next_state; 
 }
