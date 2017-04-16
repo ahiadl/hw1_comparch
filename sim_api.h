@@ -52,10 +52,6 @@ typedef struct {
     SIM_cmd cmd;      /// The processed command in each pipe stage
     int32_t src1Val;  /// Actual value of src1 (considering forwarding mux, etc.)
     int32_t src2Val;  /// Actual value of src2 (considering forwarding mux, etc.)
-    int32_t dstVal;   /// Value to be written to dst register.
-    bool    br_valid;
-    int32_t address;
-    int32_t pc_4;
 } PipeStageState;
 
 /* A structure to return information about the currect simulator state */

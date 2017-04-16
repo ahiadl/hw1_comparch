@@ -1,4 +1,4 @@
-cscope 15 $HOME/hw/hw1_compm -q 0000001583 0000125346
+cscope 15 $HOME/hw/hw1_compm -q 0000001610 0000134041
 	@sim_api.h
 
 4 #i‚de‡
@@ -185,17 +185,29 @@ boﬁ
 	gbr_vÆid
 ;
 
-57 } 
+57 
+öt32_t
+ 
+	gaddªss
+;
+
+58 
+öt32_t
+ 
+	gpc_4
+;
+
+59 } 
 	tPùeSègeSèã
 ;
 
-61 
+63 
 öt32_t
  
 	gpc
 ;
 
-62 
+64 
 öt32_t
  
 	gªgFûe
@@ -203,7 +215,7 @@ boﬁ
 SIM_REGFILE_SIZE
 ];
 
-63 
+65 
 PùeSègeSèã
  
 	gpùeSègeSèã
@@ -211,29 +223,29 @@ PùeSègeSèã
 SIM_PIPELINE_DEPTH
 ];
 
-64 } 
+66 } 
 	tSIM_c‹eSèã
 ;
 
-67 c⁄° *
+69 c⁄° *
 	gcmdSå
 [] = { "NOP", "ADD", "SUB", "LOAD", "STORE", "BR", "BREQ", "BRNEQ" , "HALT"};
 
-70 c⁄° *
+72 c⁄° *
 	gpùeSègeSå
 [] = { "IF", "ID", "EXE", "MEM", "WB" };
 
-91 
+93 
 SIM_MemRe£t
 (c⁄° *
 memImgF«me
 );
 
-96 
+98 
 SIM_MemClkTick
 ();
 
-105 
+107 
 SIM_MemD©aRód
 (
 uöt32_t
@@ -245,7 +257,7 @@ addr
 d°
 );
 
-111 
+113 
 SIM_MemD©aWrôe
 (
 uöt32_t
@@ -257,7 +269,7 @@ addr
 vÆ
 );
 
-119 
+121 
 SIM_MemIn°Ród
 (
 uöt32_t
@@ -269,15 +281,15 @@ SIM_cmd
 d°
 );
 
-133 
+135 
 SIM_C‹eRe£t
 ();
 
-138 
+140 
 SIM_C‹eClkTick
 ();
 
-144 
+146 
 SIM_C‹eGëSèã
 (
 SIM_c‹eSèã
@@ -285,7 +297,7 @@ SIM_c‹eSèã
 curSèã
 );
 
-147 
+149 
 DumpC‹eSèã
 (
 SIM_c‹eSèã
@@ -293,7 +305,7 @@ SIM_c‹eSèã
 °©e
 );
 
-149 #ifde‡
+151 #ifde‡
 __˝lu•lus
 
 
@@ -304,28 +316,122 @@ __˝lu•lus
 "
 
 7 
-boﬁ
- 
-	gf‹w¨dög
-;
-
-8 
-boﬁ
- 
-	g•lô_ªg
-;
-
-9 
 SIM_c‹eSèã
  
 	g°©e
 ;
 
-10 
+8 
 	gmem_ªady
 ;
 
-21 
+9 
+	ghaz¨d_dëe˘ed
+;
+
+19 
+	mREADY
+ = 0,
+
+20 
+	mNOT_READY
+ = -1,
+
+24 
+	mNO_HAZARD
+ = 0,
+
+25 
+	mHAZARD
+ = 1,
+
+29 
+	mNOT_STALLED
+ = 0,
+
+30 
+	mSTALLED
+ = 1,
+
+33 
+	#DEBUG
+ 0
+
+	)
+
+36 
+SIM_cmd
+ 
+	mcmd
+;
+
+37 
+öt32_t
+ 
+	m§c1VÆ
+;
+
+38 
+öt32_t
+ 
+	m§c2VÆ
+;
+
+39 
+öt32_t
+ 
+	md°VÆ
+;
+
+40 
+boﬁ
+ 
+	mbr_vÆid
+;
+
+41 
+öt32_t
+ 
+	maddªss
+;
+
+42 
+öt32_t
+ 
+	mpc_4
+;
+
+43 } 
+	tPùeSègeSèãI¡
+;
+
+47 
+öt32_t
+ 
+	mpc
+;
+
+48 
+öt32_t
+ 
+	mªgFûe
+[
+SIM_REGFILE_SIZE
+];
+
+49 
+PùeSègeSèãI¡
+ 
+	mpùeSègeSèã
+[
+SIM_PIPELINE_DEPTH
+];
+
+50 } 
+	tSIM_c‹eSèãI¡
+;
+
+53 
 	$ö£πNOP
  (
 PùeSègeSèã
@@ -333,17 +439,17 @@ PùeSègeSèã
 °age
 ){
 
-22 
+54 
 °age
 ->
 cmd
 .
 ›code
  = 
-NOP
+CMD_NOP
 ;
 
-23 
+55 
 °age
 ->
 cmd
@@ -351,7 +457,7 @@ cmd
 §c1
  = 0;
 
-24 
+56 
 °age
 ->
 cmd
@@ -359,7 +465,7 @@ cmd
 §c2
  = 0;
 
-25 
+57 
 °age
 ->
 cmd
@@ -369,7 +475,7 @@ isSrc2Imm
 Ál£
 ;
 
-26 
+58 
 °age
 ->
 cmd
@@ -377,25 +483,25 @@ cmd
 d°
  = 0;
 
-27 
+59 
 °age
 ->
 §c1VÆ
  = 0;
 
-28 
+60 
 °age
 ->
 §c2VÆ
  = 0;
 
-29 
+61 
 °age
 ->
 d°VÆ
  = 0;
 
-30 
+62 
 °age
 ->
 br_vÆid
@@ -403,83 +509,67 @@ br_vÆid
 Ál£
 ;
 
-31 
+63 
 	}
 }
 
-33 
+65 
 	$Êush
  (
-Sim_c‹eSèã
+SIM_c‹eSèã
 * 
-°©e
+°©e_ö°
 ){
 
-34 
+66 
 	`ö£πNOP
-(
-°©e
+(&
+°©e_ö°
 ->
 pùeSègeSèã
 [
 EXECUTE
 ]);
 
-35 
+67 
 	`ö£πNOP
-(
-°©e
+(&
+°©e_ö°
 ->
 pùeSègeSèã
 [
 DECODE
 ]);
 
-36 
+68 
 	`ö£πNOP
-(
-°©e
+(&
+°©e_ö°
 ->
 pùeSègeSèã
 [
 FETCH
 ]);
 
-37 
+69 
 	}
 }
 
-39 
-	$SIM_C‹eRe£t
-() {
-
-41 
-	}
-}
-
-46 
-	$SIM_C‹eClkTick
-() {
-
-47 
+71 
+	$IF_°age
+ (
 SIM_c‹eSèã
- 
-√xt_°©e
-;
+* 
+°©e_ö°
+){
 
-48 i‡(!
-	`MEM_°age
-()){
-
-49 
-√xt_°©e
+72 
+	`SIM_MemIn°Ród
+(
+°©e_ö°
 ->
 pc
- = 
-	`IF_°age
- (&
-°©e
-->pc,&√xt_°©e.
++4,&°©e_ö°->
 pùeSègeSèã
 [
 FETCH
@@ -487,57 +577,1783 @@ FETCH
 cmd
 );
 
-50 
-	`ID_°age
+73 
+°©e_ö°
+->
+pùeSègeSèã
+[
+FETCH
+].
+pc_4
+ = sèã_ö°->
+pc
++4;
+
+74 if(
+DEBUG
+Ë
+	`¥ötf
+("IF_°age:Öc_4: 0x%x,Öc: 0x%x\n",
+°©e_ö°
+->
+pùeSègeSèã
+[
+FETCH
+].
+pc_4
+, sèã_ö°->
+pc
+);
+
+75  
+°©e_ö°
+->
+pc
++4;
+
+76 
+	}
+}
+
+78 
+	$ID_°age
+ (
+SIM_c‹eSèã
+* 
+°©e_ö°
+, SIM_c‹eSèã* 
+√xt
+ ){
+
+79 
+√xt
+->
+pùeSègeSèã
+[
+DECODE
+] = 
+°©e_ö°
+->pùeSègeSèã[
+FETCH
+];
+
+80 
+√xt
+->
+pùeSègeSèã
+[
+DECODE
+].
+§c1VÆ
+ =Çext->
+ªgFûe
+[
+°©e_ö°
+->pùeSègeSèã[
+FETCH
+].
+cmd
+.
+§c1
+];
+
+81 
+√xt
+->
+pùeSègeSèã
+[
+DECODE
+].
+§c2VÆ
+ = 
+°©e_ö°
+->pùeSègeSèã[
+FETCH
+].
+cmd
+.
+isSrc2Imm
+ ? sèã_ö°->pùeSègeSèã[FETCH].cmd.
+§c2
+ :Çext->
+ªgFûe
+[state_inst->pipeStageState[FETCH].cmd.src2];
+
+82 
+√xt
+->
+pùeSègeSèã
+[
+DECODE
+].
+d°VÆ
+ = (
+CMD_STORE
+ =
+°©e_ö°
+->pùeSègeSèã[
+FETCH
+].
+cmd
+.
+›code
+Ë?Çext->
+ªgFûe
+[°©e_ö°->pùeSègeSèã[FETCH].cmd.
+d°
+] : 0 ;
+
+83 
+	}
+}
+
+85 
+	$£¨ch_f‹w¨dög
+ (
+SIM_c‹eSèã
+* 
+°©e_ö°
+){
+
+86 
+§c1
+ = 
+°©e_ö°
+->
+pùeSègeSèã
+[
+EXECUTE
+].
+cmd
+.src1;
+
+87 
+§c2
+ = 
+°©e_ö°
+->
+pùeSègeSèã
+[
+EXECUTE
+].
+cmd
+.src2;
+
+88 
+d°
+ = 
+°©e_ö°
+->
+pùeSègeSèã
+[
+EXECUTE
+].
+cmd
+.dst;
+
+89 * 
+§c1VÆ
+ = &
+°©e_ö°
+->
+pùeSègeSèã
+[
+EXECUTE
+].src1Val;
+
+90 * 
+§c2VÆ
+ = &
+°©e_ö°
+->
+pùeSègeSèã
+[
+EXECUTE
+].src2Val;
+
+91 * 
+d°VÆ
+ = &
+°©e_ö°
+->
+pùeSègeSèã
+[
+EXECUTE
+].dstVal;
+
+93 
+°©e_ö°
+->
+pùeSègeSèã
+[
+EXECUTE
+].
+cmd
+.
+›code
+){
+
+94 
+CMD_STORE
+:
+
+95 
+CMD_ADD
+:
+
+96 
+CMD_SUB
+:
+
+97 
+CMD_BREQ
+:
+
+98 
+CMD_BRNEQ
+:
+
+99 
+CMD_LOAD
+:
+
+100 *
+§c1VÆ
+ = (
+§c1
+ =
+°©e_ö°
+->
+pùeSègeSèã
+[
+MEMORY
+].
+cmd
+.
+d°
+Ë? sèã_ö°->pùeSègeSèã[MEMORY].
+d°VÆ
+ :
+
+101 (
+§c1
+ =
+°©e_ö°
+->
+pùeSègeSèã
+[
+WRITEBACK
+].
+cmd
+.
+d°
+Ë? sèã_ö°->pùeSègeSèã[WRITEBACK].
+d°VÆ
+ : *
+§c1VÆ
+;
+
+102 *
+§c2VÆ
+ = (
+§c2
+ =
+°©e_ö°
+->
+pùeSègeSèã
+[
+MEMORY
+].
+cmd
+.
+d°
+Ë? sèã_ö°->pùeSègeSèã[MEMORY].
+d°VÆ
+ :
+
+103 (
+§c2
+ =
+°©e_ö°
+->
+pùeSègeSèã
+[
+WRITEBACK
+].
+cmd
+.
+d°
+Ë? sèã_ö°->pùeSègeSèã[WRITEBACK].
+d°VÆ
+ : *
+§c2VÆ
+;
+
+104 
+CMD_BR
+:
+
+105 *
+d°VÆ
+ = (
+d°
+ =
+°©e_ö°
+->
+pùeSègeSèã
+[
+MEMORY
+].
+cmd
+.dst) ? state_inst->pipeStageState[MEMORY].dstVal :
+
+106 (
+d°
+ =
+°©e_ö°
+->
+pùeSègeSèã
+[
+WRITEBACK
+].
+cmd
+.d°Ë? sèã_ö°->pùeSègeSèã[WRITEBACK].
+d°VÆ
+ : *dstVal;
+
+111 
+	}
+}
+
+113 
+	$EXE_°age
+(
+SIM_c‹eSèã
+* 
+°©e_ö°
+, SIM_c‹eSèã* 
+√xt
+ ){
+
+114 
+√xt
+->
+pùeSègeSèã
+[
+EXECUTE
+] = 
+°©e_ö°
+->pùeSègeSèã[
+DECODE
+];
+
+115 i‡(
+f‹w¨dög
+Ë
+	`£¨ch_f‹w¨dög
+(
+√xt
+);
+
+116 
+√xt
+->
+pùeSègeSèã
+[
+EXECUTE
+].
+cmd
+.
+›code
+){
+
+117 
+CMD_ADD
+:
+
+118 
+√xt
+->
+pùeSègeSèã
+[
+EXECUTE
+].
+d°VÆ
+ =Çext->pùeSègeSèã[EXECUTE].
+§c1VÆ
+ +Çext->pùeSègeSèã[EXECUTE].
+§c2VÆ
+;
+
+120 
+CMD_SUB
+:
+
+121 
+√xt
+->
+pùeSègeSèã
+[
+EXECUTE
+].
+d°VÆ
+ =Çext->pùeSègeSèã[EXECUTE].
+§c1VÆ
+ -Çext->pùeSègeSèã[EXECUTE].
+§c2VÆ
+;
+
+123 
+CMD_BREQ
+:
+
+124 
+√xt
+->
+pùeSègeSèã
+[
+EXECUTE
+].
+br_vÆid
+ = (√xt->pùeSègeSèã[EXECUTE].
+§c1VÆ
+ =√xt->pùeSègeSèã[EXECUTE].
+§c2VÆ
+);
+
+126 
+CMD_BRNEQ
+:
+
+127 
+√xt
+->
+pùeSègeSèã
+[
+EXECUTE
+].
+br_vÆid
+ = (√xt->pùeSègeSèã[EXECUTE].
+§c1VÆ
+ !√xt->pùeSègeSèã[EXECUTE].
+§c2VÆ
+);
+
+129 
+CMD_BR
+:
+
+130 
+√xt
+->
+pùeSègeSèã
+[
+EXECUTE
+].
+br_vÆid
+ = 
+åue
+;
+
+134 
+	}
+}
+
+137 
+	$MEM_°age
+(
+SIM_c‹eSèã
+* 
+°©e_ö°
+, SIM_c‹eSèã* 
+√xt
+){
+
+138 
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+] = 
+°©e_ö°
+->pùeSègeSèã[
+EXECUTE
+];
+
+139 
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+addªss
+ = (√xt->pùeSègeSèã[MEMORY].
+cmd
+.
+isSrc2Imm
+Ë?Çext->pùeSègeSèã[MEMORY].
+§c1VÆ
+ +Çext->pùeSègeSèã[MEMORY].cmd.
+§c2
+ :
+
+140 
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+§c1VÆ
+ +Çext->pùeSègeSèã[MEMORY].
+§c2VÆ
+;
+
+141 
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+cmd
+.
+›code
+){
+
+142 
+CMD_LOAD
+:
+
+143 
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+addªss
+ = (√xt->pùeSègeSèã[MEMORY].
+cmd
+.
+isSrc2Imm
+Ë?Çext->pùeSègeSèã[MEMORY].
+§c1VÆ
+ +Çext->pùeSègeSèã[MEMORY].cmd.
+§c2
+ :
+
+144 
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+§c1VÆ
+ +Çext->pùeSègeSèã[MEMORY].
+§c2VÆ
+;
+
+145 
+mem_ªady
+ = 
+	`SIM_MemD©aRód
+(
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+addªss
+, &√xt->pùeSègeSèã[MEMORY].
+d°VÆ
+);
+
+147 
+CMD_STORE
+:
+
+148 
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+addªss
+ = (√xt->pùeSègeSèã[MEMORY].
+cmd
+.
+isSrc2Imm
+Ë?Çext->pùeSègeSèã[MEMORY].
+d°VÆ
+ +Çext->pùeSègeSèã[MEMORY].cmd.
+§c2
+ :
+
+149 
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+§c1VÆ
+ +Çext->pùeSègeSèã[MEMORY].
+§c2VÆ
+;
+
+150 
+	`SIM_MemD©aWrôe
+(
+√xt
+->
+pùeSègeSèã
+[
+MEMORY
+].
+addªss
+,Çext->pùeSègeSèã[MEMORY].
+§c1VÆ
+);
+
+155 
+	}
+}
+
+157 
+	$bønch_exec
+ (
+SIM_c‹eSèã
+* 
+°©e_ö°
+){
+
+158 if(
+DEBUG
+Ë
+	`¥ötf
+("pc_4 vÆues: IF 0x%x ID 0x%x EXE 0x%x MEM 0x%x WB 0x%x \n", 
+°©e_ö°
+->
+pùeSègeSèã
+[
+FETCH
+].
+pc_4
+,°©e_ö°->pùeSègeSèã[
+DECODE
+].pc_4,°©e_ö°->pùeSègeSèã[
+EXECUTE
+].pc_4,°©e_ö°->pùeSègeSèã[
+MEMORY
+].pc_4,°©e_ö°->pùeSègeSèã[
+WRITEBACK
+].pc_4);
+
+159 i‡(
+°©e_ö°
+->
+pùeSègeSèã
+[
+MEMORY
+].
+br_vÆid
+){
+
+160 
+haz¨d_dëe˘ed
+ = 
+NO_HAZARD
+;
+
+161 
+mem_ªady
+ = 
+READY
+;
+
+162 
+°©e_ö°
+->
+pc
+ = sèã_ö°->
+pùeSègeSèã
+[
+MEMORY
+].
+pc_4
+ + sèã_ö°->
+ªgFûe
+[°©e_ö°->pùeSègeSèã[MEMORY].
+cmd
+.
+d°
+];
+
+163 if(
+DEBUG
+Ë
+	`¥ötf
+ ("pc_4: 0x%x; d°: 0x%x\n", 
+°©e_ö°
+->
+pùeSègeSèã
+[
+MEMORY
+].
+pc_4
+, sèã_ö°->
+ªgFûe
+[°©e_ö°->pùeSègeSèã[MEMORY].
+cmd
+.
+d°
+]);
+
+164 if(
+DEBUG
+Ë
+	`¥ötf
+ ("bøncháddªss: 0x%x;\n", 
+°©e_ö°
+->
+pc
+);
+
+165 
+	`Êush
+(
+°©e_ö°
+);
+
+166 if(
+DEBUG
+Ë
+	`¥ötf
+ ("flushed!\n");
+
+168 
+	}
+}
+
+171 
+	$wrôe_to_ªgfûe
+ (
+SIM_c‹eSèã
+* 
+°©e_ö°
+){
+
+172 
+°©e_ö°
+->
+pùeSègeSèã
+[
+WRITEBACK
+].
+cmd
+.
+›code
+){
+
+173 
+CMD_LOAD
+:
+
+174 
+CMD_ADD
+ :
+
+175 
+CMD_SUB
+ :
+
+176 
+°©e_ö°
+->
+ªgFûe
+[°©e_ö°->
+pùeSègeSèã
+[
+WRITEBACK
+].
+cmd
+.
+d°
+] = sèã_ö°->pùeSègeSèã[WRITEBACK].
+d°VÆ
+;
+
+180 
+	}
+}
+
+182 
+	$WB_°age
+ (
+SIM_c‹eSèã
+* 
+°©e_ö°
+,SIM_c‹eSèã* 
+√xt
+) {
+
+183 
+√xt
+->
+pùeSègeSèã
+[
+WRITEBACK
+] = 
+°©e_ö°
+->pùeSègeSèã[
+MEMORY
+];
+
+184 i‡(
+•lô_ªgfûe
+Ë
+	`wrôe_to_ªgfûe
+(
+√xt
+);
+
+185 
+	}
+}
+
+187 
+	$ª£t_cmd
+ (
+SIM_cmd
+* 
+cmd
+){
+
+188 
+cmd
+->
+›code
+ = 
+CMD_NOP
+;
+
+189 
+cmd
+->
+§c1
+ = 0;
+
+190 
+cmd
+->
+§c2
+ = 0;
+
+191 
+cmd
+->
+isSrc2Imm
+ = 
+Ál£
+;
+
+192 
+cmd
+->
+d°
+ = 0;
+
+193 
+	}
+}
+
+195 
+	$ª£t_pùe_°age
+ (
+PùeSègeSèã
+* 
+pùe
+){
+
+196 
+	`ª£t_cmd
  (&
+pùe
+->
+cmd
+);
+
+197 
+pùe
+->
+§c1VÆ
+ = 0;
+
+198 
+pùe
+->
+§c2VÆ
+ = 0;
+
+199 
+pùe
+->
+d°VÆ
+ = 0;
+
+200 
+pùe
+->
+br_vÆid
+ = 0;
+
+201 
+pùe
+->
+addªss
+ = 0;
+
+202 
+pùe
+->
+pc_4
+ = 0;
+
+203 
+	}
+}
+
+205 
+	$ª£t_ªgFûe
+ (
+öt32_t
+* 
+ªgFûe
+){
+
+206 
+i
+;
+
+207 
+i
+=0; i<
+SIM_REGFILE_SIZE
+; i++Ë
+ªgFûe
+[i]=0;
+
+208 
+	}
+}
+
+210 
+	$ª£t_°©e
+ (
+SIM_c‹eSèã
+* 
+°©e_ö°
+){
+
+211 
+°©e_ö°
+->
+pc
+ =0;
+
+212 
+	`ª£t_ªgFûe
+(
+°©e_ö°
+->
+ªgFûe
+);
+
+213 
+i
+;
+
+214 
+i
+=0; i<
+SIM_PIPELINE_DEPTH
+ ; i++Ë
+	`ª£t_pùe_°age
+ (&
+°©e_ö°
+->
+pùeSègeSèã
+[i]);
+
+215 
+	}
+}
+
+217 
+	$SIM_C‹eRe£t
+() {
+
+218 
+mem_ªady
+ = 
+READY
+;
+
+219 
+haz¨d_dëe˘ed
+ = 
+NO_HAZARD
+;
+
+220 
+	`ª£t_°©e
+(&
+°©e
+);
+
+221 
+	`SIM_MemIn°Ród
+(
+°©e
+.
+pc
+, &°©e.
+pùeSègeSèã
+[
+FETCH
+].
+cmd
+);
+
+223 
+	}
+}
+
+225 
+	$c›y_ªgFûe
+ (
+öt32_t
+* 
+§c
+, i¡32_t* 
+d°
+){
+
+226 
+i
+;
+
+227 
+i
+=0; i<
+SIM_REGFILE_SIZE
+; i++Ë
+d°
+[i]=
+§c
+[i];
+
+228 
+	}
+}
+
+230 
+	$check_dïíd_⁄_°age
+ (
+SIM_c‹eSèã
+* 
+°©e_ö°
+,
+low_°age
+, 
+high_°age
+){
+
+231 
+v¨1_vs_high_d°
+ = 0;
+
+232 
+v¨2_vs_high_d°
+ = 0;
+
+233 
+d°_vs_high_d°
+ = 0;
+
+234 
+high_°age_cmd
+ = 
+°©e_ö°
+->
+pùeSègeSèã
+[
+high_°age
+].
+cmd
+.
+›code
+;
+
+235 i‡(
+high_°age_cmd
+ !
+CMD_LOAD
+ && high_°age_cmd !
+CMD_ADD
+ && high_°age_cmd !
+CMD_SUB
+Ë 
+NO_HAZARD
+;
+
+236 
+°©e_ö°
+->
+pùeSègeSèã
+[
+low_°age
+].
+cmd
+.
+›code
+){
+
+237 
+CMD_BR
+:
+
+238 
+v¨1_vs_high_d°
+ = (
+°©e_ö°
+->
+pùeSègeSèã
+[
+low_°age
+].
+cmd
+.
+d°
+ =°©e_ö°->pùeSègeSèã[
+high_°age
+].cmd.dst);
+
+240 
+CMD_BREQ
+:
+
+241 
+CMD_BRNEQ
+:
+
+242 
+CMD_STORE
+:
+
+243 
+d°_vs_high_d°
+ = (
+°©e_ö°
+->
+pùeSègeSèã
+[
+low_°age
+].
+cmd
+.
+d°
+ =°©e_ö°->pùeSègeSèã[
+high_°age
+].cmd.dst);
+
+244 
+CMD_ADD
+:
+
+245 
+CMD_SUB
+:
+
+246 
+CMD_LOAD
+:
+
+247 
+v¨1_vs_high_d°
+ = (
+°©e_ö°
+->
+pùeSègeSèã
+[
+low_°age
+].
+cmd
+.
+§c1
+ =°©e_ö°->pùeSègeSèã[
+high_°age
+].cmd.
+d°
+);
+
+248 
+v¨2_vs_high_d°
+ = 
+°©e_ö°
+->
+pùeSègeSèã
+[
+low_°age
+].
+cmd
+.
+isSrc2Imm
+ ? 0 : (°©e_ö°->pùeSègeSèã[low_°age].cmd.
+§c2
+ =°©e_ö°->pùeSègeSèã[
+high_°age
+].cmd.
+d°
+);
+
+253  (
+v¨1_vs_high_d°
+ || 
+v¨2_vs_high_d°
+ || 
+d°_vs_high_d°
+ ) ? 
+HAZARD
+ : 
+NO_HAZARD
+;
+
+254 
+	}
+}
+
+257 
+	$check_decode_dïíd
+(
+SIM_c‹eSèã
+* 
+°©e_ö°
+){
+
+258 i‡(
+f‹w¨dög
+Ë 
+NO_HAZARD
+;
+
+259 
+decode_vs_execuã
+ = 
+	`check_dïíd_⁄_°age
+(
+°©e_ö°
+, 
+DECODE
+, 
+EXECUTE
+);
+
+260 
+decode_vs_mem‹y
+ = 
+	`check_dïíd_⁄_°age
+(
+°©e_ö°
+, 
+DECODE
+, 
+MEMORY
+);
+
+261 
+decode_vs_wrôeback
+ = 
+•lô_ªgfûe
+ ? 0 : 
+	`check_dïíd_⁄_°age
+(
+°©e_ö°
+, 
+DECODE
+, 
+WRITEBACK
+);
+
+262  (
+decode_vs_mem‹y
+ || 
+decode_vs_execuã
+ || 
+decode_vs_wrôeback
+);
+
+263 
+	}
+}
+
+265 
+	$shi·_backw¨ds_pùe
+(
+SIM_c‹eSèã
+* 
+°©e_ö°
+){
+
+266 
+°©e_ö°
+->
+pùeSègeSèã
+[
+FETCH
+] = sèã_ö°->pùeSègeSèã[
+DECODE
+];
+
+267 
+°©e_ö°
+->
+pùeSègeSèã
+[
+DECODE
+] = sèã_ö°->pùeSègeSèã[
+EXECUTE
+];
+
+268 
+°©e_ö°
+->
+pùeSègeSèã
+[
+EXECUTE
+] = sèã_ö°->pùeSègeSèã[
+MEMORY
+];
+
+269 
+	`ö£πNOP
+(&
+°©e_ö°
+->
+pùeSègeSèã
+[
+MEMORY
+]);
+
+270 
+	}
+}
+
+272 
+	$check_lﬂd_haz¨d
+ (
+SIM_c‹eSèã
+* 
+°©e_ö°
+){
+
+273 i‡(!(
+°©e_ö°
+->
+pùeSègeSèã
+[
+EXECUTE
+].
+cmd
+.
+›code
+ =
+CMD_LOAD
+)Ë 
+NO_HAZARD
+;
+
+274 
+§c1
+ = 
+°©e_ö°
+->
+pùeSègeSèã
+[
+DECODE
+].
+cmd
+.src1;
+
+275 
+§c2
+ = 
+°©e_ö°
+->
+pùeSègeSèã
+[
+DECODE
+].
+cmd
+.src2;
+
+276 
+d°
+ = 
+°©e_ö°
+->
+pùeSègeSèã
+[
+DECODE
+].
+cmd
+.dst;
+
+277 
+d°_exe
+ = 
+°©e_ö°
+->
+pùeSègeSèã
+[
+EXECUTE
+].
+cmd
+.
+d°
+;
+
+278 
+°©e_ö°
+->
+pùeSègeSèã
+[
+DECODE
+].
+cmd
+.
+›code
+){
+
+279 
+CMD_STORE
+:
+
+280 
+CMD_BREQ
+:
+
+281 
+CMD_BRNEQ
+:
+
+282  ((
+§c1
+ =
+d°_exe
+Ë|| (
+§c2
+ =d°_exeË|| (
+d°
+ =d°_exeË? 
+HAZARD
+ : 
+NO_HAZARD
+);
+
+283 
+CMD_LOAD
+:
+
+284 
+CMD_ADD
+:
+
+285 
+CMD_SUB
+:
+
+286  ((
+§c1
+ =
+d°_exe
+Ë|| (
+§c2
+ =d°_exeË? 
+HAZARD
+ : 
+NO_HAZARD
+);
+
+287 
+CMD_BR
+:
+
+288  ((
+d°
+ =
+d°_exe
+Ë? 
+HAZARD
+ : 
+NO_HAZARD
+);
+
+292  
+NO_HAZARD
+;
+
+293 
+	}
+}
+
+303 
+	$SIM_C‹eClkTick
+() {
+
+304 if(
+DEBUG
+Ë
+	`¥ötf
+("\n------------new_tick--------------\n");
+
+306 
+SIM_c‹eSèã
+ 
+√xt_°©e
+;
+
+307 
+	`ª£t_°©e
+(&
+√xt_°©e
+);
+
+308 i‡(!
+•lô_ªgfûe
+Ë
+	`wrôe_to_ªgfûe
+ (&
+°©e
+);
+
+309 
+	`c›y_ªgFûe
+ (
+°©e
+.
+ªgFûe
+, 
+√xt_°©e
+.regFile);
+
+310 
+	`bønch_exec
+(&
+°©e
+);
+
+311 
+√xt_°©e
+.
+pc
+ = 
+°©e
+.pc;
+
+313 
+pùe_°ÆÀd
+ = 
+NOT_STALLED
+;
+
+314 if(
+DEBUG
+Ë
+	`¥ötf
+("246Çext.pc: 0x%x \n", 
+√xt_°©e
+.
+pc
+);
+
+315 i‡(
+mem_ªady
+ =
+NOT_READY
+) {
+
+316 
+	`shi·_backw¨ds_pùe
+(&
+°©e
+);
+
+317 
+√xt_°©e
+.
+pc
+ -= 4;
+
+318 
+pùe_°ÆÀd
+ = 
+STALLED
+;
+
+320 if(
+haz¨d_dëe˘ed
+ =
+HAZARD
+){
+
+321 
+√xt_°©e
+.
+pc
+ -= 4;
+
+322 
 °©e
 .
 pùeSègeSèã
 [
 FETCH
-], &
-√xt_°©e
-.pùeSègeSèã[
+] = sèã.pùeSègeSèã[
 DECODE
-],&°©e.
-ªgFûe
- );
+];
 
-51 
-	`WB_°age
-();
+325 if(
+DEBUG
+Ë
+	`¥ötf
+ ("mem_ªady: %d, dd›: %d\n", 
+mem_ªady
+, 
+haz¨d_dëe˘ed
+);
 
-53 
+326 if(
+DEBUG
+Ë
+	`¥ötf
+("257Çext.pc: 0x%x \n", 
 √xt_°©e
- = 
-°©e
-;
+.
+pc
+);
 
-54 
+328 
 	`WB_°age
-();
+(&
+°©e
+, &
+√xt_°©e
+);
 
-55 
+329 
+	`MEM_°age
+(&
+°©e
+, &
+√xt_°©e
+);
+
+330 
+	`EXE_°age
+(&
+°©e
+, &
+√xt_°©e
+);
+
+331 
+	`ID_°age
+(&
+°©e
+, &
+√xt_°©e
+);
+
+332 
+√xt_°©e
+.
+pc
+ = 
+	`IF_°age
+ (&next_state);
+
+335 if(
+DEBUG
+Ë
+	`¥ötf
+("263Çext.pc: 0x%x \n", 
+√xt_°©e
+.
+pc
+);
+
+336 if((
+HAZARD
+ =
+haz¨d_dëe˘ed
+Ë&& (
+NOT_STALLED
+ =
+pùe_°ÆÀd
+)){
+
+337 
 	`ö£πNOP
 (&
 √xt_°©e
 .
 pùeSègeSèã
 [
-WB
+EXECUTE
 ]);
 
-57 
+340 
+haz¨d_dëe˘ed
+ = (
+	`check_decode_dïíd
+(&
+√xt_°©e
+Ë|| 
+	`check_lﬂd_haz¨d
+(&√xt_°©e)Ë? 
+HAZARD
+ : 
+NO_HAZARD
+;
+
+342 if(
+DEBUG
+Ë
+	`¥ötf
+("273Çext.pc: 0x%x \n", 
+√xt_°©e
+.
+pc
+);
+
+343 
 °©e
  = 
 √xt_°©e
 ;
 
-58 
+344 
 	}
 }
 
-64 
+353 
 	$SIM_C‹eGëSèã
 (
 SIM_c‹eSèã
@@ -545,415 +2361,13 @@ SIM_c‹eSèã
 curSèã
 ) {
 
-65 
-	}
-}
-
-68 
-	$IF_°age
- (
-uöt32_t
-* 
-addr
-, 
-SIM_cmd
- *
-d°
-){
-
-69 
-	`SIM_MemIn°Ród
-(*
-addr
-, 
-d°
-);
-
-70  *
-addr
+354 *
+curSèã
+ = 
+°©e
 ;
 
-71 
-	}
-}
-
-73 
-	$ID_°age
- (
-SIM_c‹eSèã
-* 
-°©e
-, 
-PùeSègeSèã
-* 
-decode
-){
-
-74 
-decode
-->
-cmd
- = 
-°©e
-->
-pùeSègeSèã
-[
-FETCH
-].cmd;
-
-75 
-decode
-->
-§c1VÆ
- = 
-°©e
-->
-ªgFIÀ
-[°©e->
-pùeSègeSèã
-[
-FETCH
-].
-cmd
-.
-§c1
-];
-
-76 
-decode
-->
-§c2VÆ
- = 
-°©e
-->
-pùeSègeSèã
-[
-FETCH
-].
-cmd
-.
-isSrc2Imm
- ? 0 : sèã->
-ªgFIÀ
-[°©e->pùeSègeSèã[FETCH].cmd.
-§c2
-];
-
-77 
-	}
-}
-
-79 
-	$EXE_°age
-(
-SIM_c‹eSèã
-* 
-°©e
-, 
-PùeSègeSèã
-* 
-execuã
-){
-
-80 
-execuã
-->
-cmd
- = 
-°©e
-->
-pùeSègeSèã
-[
-DECODE
-].cmd;
-
-81 
-execuã
-->
-cmd
-.
-›code
-){
-
-82 
-CMD_ADD
-:
-
-83 
-execuã
-->
-d°VÆ
- =Éxecuã->
-§c1VÆ
- +Éxecuã->
-§c2VÆ
-;
-
-85 
-CMD_SUB
-:
-
-86 
-execuã
-->
-d°VÆ
- =Éxecuã->
-§c1VÆ
- -Éxecuã->
-§c2VÆ
-;
-
-88 
-CMD_BREQ
-:
-
-89 
-execuã
-->
-br_vÆid
- = (execuã->
-§c1VÆ
-=Ûxecuã->
-§c2VÆ
-);
-
-91 
-CMD_BEQ
-:
-
-92 
-execuã
-->
-br_vÆid
- = (execuã->
-§c1VÆ
-!Ûxecuã->
-§c2VÆ
-);
-
-94 
-CMD_BR
-:
-
-95 
-execuã
-->
-br_vÆid
- = 
-åue
-;
-
-98 
-	}
-}
-
-101 
-	$MEM_°age
-(
-SIM_c‹eSèã
-* 
-°©e
-, SIM_c‹eSèã* 
-√xt
-){
-
-102 
-√xt
-->
-pùeSègeSèã
-[
-MEMORY
-].
-cmd
- = 
-°©e
-->pùeSègeSèã[
-EXECUTE
-].cmd;
-
-103 
-√xt
-->
-pùeSègeSèã
-[
-MEMORY
-].
-cmd
-.
-›code
-){
-
-104 
-CMD_LOAD
-:
-
-105 
-öt32_t
- 
-addªss
- = (
-√xt
-->
-pùeSègeSèã
-[
-MEMORY
-].
-cmd
-.
-isSrc2Imm
-Ë?Çext->pùeSègeSèã[MEMORY].
-§c1VÆ
- +Çext->pùeSègeSèã[MEMORY].cmd.
-§c2
- :
-
-106 
-√xt
-->
-pùeSègeSèã
-[
-MEMORY
-].
-§c1VÆ
- +Çext->pùeSègeSèã[MEMORY].
-§c2VÆ
-;
-
-107  
-	`SIM_MemD©aRód
-(
-addªss
-, &
-√xt
-->
-ªgFûe
-[√xt->
-pùeSègeSèã
-[
-MEMORY
-].
-cmd
-.
-d°
-]);
-
-109 
-CMD_STORE
-:
-
-110 
-öt32_t
- 
-addªss
- = (
-√xt
-->
-pùeSègeSèã
-[
-MEMORY
-].
-cmd
-.
-isSrc2Imm
-Ë?Çext->pùeSègeSèã[MEMORY].
-§c1VÆ
- +Çext->pùeSègeSèã[MEMORY].cmd.
-§c2
- :
-
-111 
-√xt
-->
-pùeSègeSèã
-[
-MEMORY
-].
-§c1VÆ
- +Çext->pùeSègeSèã[MEMORY].
-§c2VÆ
-;
-
-112 
-	`SIM_MemD©aWrôe
-(
-addªss
-, &
-√xt
-->
-ªgFûe
-[√xt->
-pùeSègeSèã
-[
-MEMORY
-].
-cmd
-.
-d°
-]);
-
-114 
-CMD_BR
-:
-
-115 
-CMD_BEQ
-:
-
-116 
-CMD_BNEQ
-:
-
-117 i‡(
-√xt
-->
-pùeSègeSèã
-[
-MEMORY
-].
-br_vÆid
-){
-
-118 
-√xt
-->
-pc
- = 
-°©e
-->p¯- 8 +Çext->
-ªgFûe
-[√xt->
-pùeSègeSèã
-[
-MEMORY
-].
-cmd
-.
-d°
-];
-
-119 
-	`Êush
-();
-
-121 
-√xt
-->
-pc
- = (next->pc) + 4;
-
-126 
-	}
-}
-
-130 
-	$WB_°age
- (
-SIM_c‹eSèã
-* 
-°©e
-) {
-
-135 
+355 
 	}
 }
 

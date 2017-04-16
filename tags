@@ -5,76 +5,104 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 CFLAGS	makefile	/^CFLAGS = -std=c99$/;"	m
-CMD_ADD	sim_api.h	/^    CMD_ADD,    \/\/ dst <- src1 + src2$/;"	e	enum:__anon4
-CMD_BR	sim_api.h	/^    CMD_BR,     \/\/ Unconditional relative branch to PC+dst register value$/;"	e	enum:__anon4
-CMD_BREQ	sim_api.h	/^    CMD_BREQ,   \/\/ Branch to PC+dst if (src1 == src2)$/;"	e	enum:__anon4
-CMD_BRNEQ	sim_api.h	/^    CMD_BRNEQ,  \/\/ Branch to PC+dst if (src1 != src2)$/;"	e	enum:__anon4
-CMD_HALT	sim_api.h	/^    CMD_HALT,    \/\/ Special halt command indicating a stop to the machine$/;"	e	enum:__anon4
-CMD_LOAD	sim_api.h	/^    CMD_LOAD,   \/\/ dst <- Mem[src1 + src2]  (src2 may be an immediate)$/;"	e	enum:__anon4
-CMD_MAX	sim_api.h	/^    CMD_MAX = CMD_HALT$/;"	e	enum:__anon4
-CMD_NOP	sim_api.h	/^    CMD_NOP = 0,$/;"	e	enum:__anon4
-CMD_STORE	sim_api.h	/^    CMD_STORE,  \/\/ Mem[dst + src2] <- src1  (src2 may be an immediate)$/;"	e	enum:__anon4
-CMD_SUB	sim_api.h	/^    CMD_SUB,    \/\/ dst <- src1 - src2$/;"	e	enum:__anon4
-DECODE	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon5
-DEPEND	sim_core.c	/^    DEPEND     = 1,$/;"	e	enum:__anon2	file:
+CMD_ADD	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    CMD_ADD,    \/\/ dst <- src1 + src2$/;"	e	enum:__anon1
+CMD_BR	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    CMD_BR,     \/\/ Unconditional relative branch to PC+dst register value$/;"	e	enum:__anon1
+CMD_BREQ	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    CMD_BREQ,   \/\/ Branch to PC+dst if (src1 == src2)$/;"	e	enum:__anon1
+CMD_BRNEQ	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    CMD_BRNEQ,  \/\/ Branch to PC+dst if (src1 != src2)$/;"	e	enum:__anon1
+CMD_HALT	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    CMD_HALT,    \/\/ Special halt command indicating a stop to the machine$/;"	e	enum:__anon1
+CMD_LOAD	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    CMD_LOAD,   \/\/ dst <- Mem[src1 + src2]  (src2 may be an immediate)$/;"	e	enum:__anon1
+CMD_MAX	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    CMD_MAX = CMD_HALT$/;"	e	enum:__anon1
+CMD_NOP	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    CMD_NOP = 0,$/;"	e	enum:__anon1
+CMD_STORE	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    CMD_STORE,  \/\/ Mem[dst + src2] <- src1  (src2 may be an immediate)$/;"	e	enum:__anon1
+CMD_SUB	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    CMD_SUB,    \/\/ dst <- src1 - src2$/;"	e	enum:__anon1
+DECODE	/home/ahiadl/hw/hw1_compm/sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
 DetectHALT	sim_main.c	/^bool DetectHALT(SIM_coreState *state) {$/;"	f
+DumpCoreState	/home/ahiadl/hw/hw1_compm/sim_api.h	/^void DumpCoreState(SIM_coreState *state);$/;"	p	signature:(SIM_coreState *state)
 DumpCoreState	sim_main.c	/^void DumpCoreState(SIM_coreState *state) {$/;"	f
-EXECUTE	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon5
-EXE_stage	sim_core.c	/^void EXE_stage(SIM_coreState* state_inst, PipeStageState* execute){$/;"	f
-EXTRA_DEPS	makefile	/^EXTRA_DEPS = sim_api.h$/;"	m
-FETCH	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon5
-ID_stage	sim_core.c	/^void ID_stage (SIM_coreState* state_inst, PipeStageState* decode){  $/;"	f
-IF_stage	sim_core.c	/^int IF_stage (SIM_coreState* state_inst, SIM_cmd *dst){$/;"	f
-MEMORY	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon5
-MEM_stage	sim_core.c	/^void MEM_stage(SIM_coreState* state_inst, SIM_coreState* next){$/;"	f
-NOT_DEPEND	sim_core.c	/^    NOT_DEPEND = 0,$/;"	e	enum:__anon2	file:
-NOT_READY	sim_core.c	/^    NOT_READY = -1,$/;"	e	enum:__anon1	file:
-NOT_STALLED	sim_core.c	/^    NOT_STALLED = 0,$/;"	e	enum:__anon3	file:
+EXECUTE	/home/ahiadl/hw/hw1_compm/sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
+EXE_stage	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void EXE_stage(SIM_coreStateInt* state_inst, SIM_coreStateInt* next ){$/;"	f	signature:(SIM_coreStateInt* state_inst, SIM_coreStateInt* next )
+FETCH	/home/ahiadl/hw/hw1_compm/sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
+HAZARD	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    HAZARD     = 1,$/;"	e	enum:__anon2	file:
+ID_stage	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void ID_stage (SIM_coreStateInt* state_inst, SIM_coreStateInt* next ){  $/;"	f	signature:(SIM_coreStateInt* state_inst, SIM_coreStateInt* next )
+IF_stage	/home/ahiadl/hw/hw1_compm/sim_core.c	/^int IF_stage (SIM_coreStateInt* state_inst){$/;"	f	signature:(SIM_coreStateInt* state_inst)
+MEMORY	/home/ahiadl/hw/hw1_compm/sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
+MEM_stage	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void MEM_stage(SIM_coreStateInt* state_inst, SIM_coreStateInt* next){$/;"	f	signature:(SIM_coreStateInt* state_inst, SIM_coreStateInt* next)
+NOT_READY	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    NOT_READY = -1,$/;"	e	enum:__anon1	file:
+NOT_STALLED	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    NOT_STALLED = 0,$/;"	e	enum:__anon3	file:
+NO_HAZARD	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    NO_HAZARD  = 0,$/;"	e	enum:__anon2	file:
 OBJ	makefile	/^OBJ = $(OBJ_GIVEN) $(OBJ_CORE)$/;"	m
 OBJ_CORE	makefile	/^OBJ_CORE = sim_core.o$/;"	m
 OBJ_GIVEN	makefile	/^OBJ_GIVEN = $(patsubst %.c,%.o,$(SRC_GIVEN))$/;"	m
-PipeStageState	sim_api.h	/^} PipeStageState;$/;"	t	typeref:struct:__anon7
-READY	sim_core.c	/^    READY = 0,$/;"	e	enum:__anon1	file:
-SIM_CoreClkTick	sim_core.c	/^void SIM_CoreClkTick() {$/;"	f
-SIM_CoreGetState	sim_core.c	/^void SIM_CoreGetState(SIM_coreState *curState) {$/;"	f
-SIM_CoreReset	sim_core.c	/^int SIM_CoreReset(void) {$/;"	f
+PipeStageState	/home/ahiadl/hw/hw1_compm/sim_api.h	/^} PipeStageState;$/;"	t	typeref:struct:__anon4
+PipeStageStateInt	/home/ahiadl/hw/hw1_compm/sim_core.c	/^} PipeStageStateInt;$/;"	t	typeref:struct:__anon4	file:
+READY	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    READY = 0,$/;"	e	enum:__anon1	file:
+SIM_CoreClkTick	/home/ahiadl/hw/hw1_compm/sim_api.h	/^void SIM_CoreClkTick();$/;"	p	signature:()
+SIM_CoreClkTick	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void SIM_CoreClkTick() {$/;"	f
+SIM_CoreGetState	/home/ahiadl/hw/hw1_compm/sim_api.h	/^void SIM_CoreGetState(SIM_coreState *curState);$/;"	p	signature:(SIM_coreState *curState)
+SIM_CoreGetState	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void SIM_CoreGetState(SIM_coreState *curState) {$/;"	f	signature:(SIM_coreState *curState)
+SIM_CoreReset	/home/ahiadl/hw/hw1_compm/sim_api.h	/^int SIM_CoreReset(void);$/;"	p	signature:(void)
+SIM_CoreReset	/home/ahiadl/hw/hw1_compm/sim_core.c	/^int SIM_CoreReset(void) {$/;"	f	signature:(void)
+SIM_MemClkTick	/home/ahiadl/hw/hw1_compm/sim_api.h	/^void SIM_MemClkTick();$/;"	p	signature:()
 SIM_MemClkTick	sim_mem.c	/^void SIM_MemClkTick()$/;"	f
+SIM_MemDataRead	/home/ahiadl/hw/hw1_compm/sim_api.h	/^int SIM_MemDataRead(uint32_t addr, int32_t *dst);$/;"	p	signature:(uint32_t addr, int32_t *dst)
 SIM_MemDataRead	sim_mem.c	/^int SIM_MemDataRead(uint32_t addr, int32_t *dst)$/;"	f
+SIM_MemDataWrite	/home/ahiadl/hw/hw1_compm/sim_api.h	/^void SIM_MemDataWrite(uint32_t addr, int32_t val);$/;"	p	signature:(uint32_t addr, int32_t val)
 SIM_MemDataWrite	sim_mem.c	/^void SIM_MemDataWrite(uint32_t addr, int32_t val)$/;"	f
+SIM_MemInstRead	/home/ahiadl/hw/hw1_compm/sim_api.h	/^void SIM_MemInstRead(uint32_t addr, SIM_cmd *dst);$/;"	p	signature:(uint32_t addr, SIM_cmd *dst)
 SIM_MemInstRead	sim_mem.c	/^void SIM_MemInstRead(uint32_t addr, SIM_cmd *dst)$/;"	f
+SIM_MemReset	/home/ahiadl/hw/hw1_compm/sim_api.h	/^int SIM_MemReset(const char *memImgFname);$/;"	p	signature:(const char *memImgFname)
 SIM_MemReset	sim_mem.c	/^int SIM_MemReset(const char *memImgFname)$/;"	f
-SIM_PIPELINE_DEPTH	sim_api.h	18;"	d
-SIM_REGFILE_SIZE	sim_api.h	19;"	d
-SIM_cmd	sim_api.h	/^} SIM_cmd;$/;"	t	typeref:struct:__anon6
-SIM_cmd_opcode	sim_api.h	/^} SIM_cmd_opcode;$/;"	t	typeref:enum:__anon4
-SIM_coreState	sim_api.h	/^} SIM_coreState;$/;"	t	typeref:struct:__anon8
-SRC_CORE	makefile	/^SRC_CORE = $(wildcard sim_core.c sim_core.cpp)$/;"	m
+SIM_PIPELINE_DEPTH	/home/ahiadl/hw/hw1_compm/sim_api.h	18;"	d
+SIM_REGFILE_SIZE	/home/ahiadl/hw/hw1_compm/sim_api.h	19;"	d
+SIM_cmd	/home/ahiadl/hw/hw1_compm/sim_api.h	/^} SIM_cmd;$/;"	t	typeref:struct:__anon3
+SIM_cmd_opcode	/home/ahiadl/hw/hw1_compm/sim_api.h	/^} SIM_cmd_opcode;$/;"	t	typeref:enum:__anon1
+SIM_coreState	/home/ahiadl/hw/hw1_compm/sim_api.h	/^} SIM_coreState;$/;"	t	typeref:struct:__anon5
+SIM_coreStateInt	/home/ahiadl/hw/hw1_compm/sim_core.c	/^} SIM_coreStateInt;$/;"	t	typeref:struct:__anon5	file:
 SRC_GIVEN	makefile	/^SRC_GIVEN = sim_main.c sim_mem.c$/;"	m
-STALLED	sim_core.c	/^    STALLED     = 1,$/;"	e	enum:__anon3	file:
-WB_stage	sim_core.c	/^void WB_stage (SIM_coreState* state_inst,SIM_coreState* next) {$/;"	f
-WRITEBACK	sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon5
-_SIM_API_H_	sim_api.h	5;"	d
+STALLED	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    STALLED     = 1,$/;"	e	enum:__anon3	file:
+WB_stage	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void WB_stage (SIM_coreStateInt* state_inst,SIM_coreStateInt* next) {$/;"	f	signature:(SIM_coreStateInt* state_inst,SIM_coreStateInt* next)
+WRITEBACK	/home/ahiadl/hw/hw1_compm/sim_api.h	/^	FETCH = 0, DECODE, EXECUTE, MEMORY, WRITEBACK,$/;"	e	enum:__anon2
+_SIM_API_H_	/home/ahiadl/hw/hw1_compm/sim_api.h	5;"	d
+__anon3::dst	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int dst;     \/\/ Destination: Index of register$/;"	m	struct:__anon3	access:public
+__anon3::isSrc2Imm	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    bool isSrc2Imm; \/\/ Is src2 an immediate value and not a register index$/;"	m	struct:__anon3	access:public
+__anon3::opcode	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    SIM_cmd_opcode opcode;$/;"	m	struct:__anon3	access:public
+__anon3::src1	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int src1;    \/\/ Source 1: Index of register$/;"	m	struct:__anon3	access:public
+__anon3::src2	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int32_t src2;    \/\/ Source 2: Index of register OR immediate (see 'isSrc2Imm')$/;"	m	struct:__anon3	access:public
+__anon4::br_valid	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    bool    br_valid; \/\/\/ Indicates if a branch should taken for this cmd$/;"	m	struct:__anon4	file:	access:public
+__anon4::cmd	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    SIM_cmd cmd;      \/\/\/ The processed command in each pipe stage$/;"	m	struct:__anon4	access:public
+__anon4::cmd	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    SIM_cmd cmd;      \/\/\/ The processed command in each pipe stage$/;"	m	struct:__anon4	file:	access:public
+__anon4::dstVal	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    int32_t dstVal;   \/\/\/ Value to be written to dst register.$/;"	m	struct:__anon4	file:	access:public
+__anon4::pc_4	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    int32_t pc_4;     \/\/\/ pc (not pc+4) of the cmd$/;"	m	struct:__anon4	file:	access:public
+__anon4::src1Val	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int32_t src1Val;  \/\/\/ Actual value of src1 (considering forwarding mux, etc.)$/;"	m	struct:__anon4	access:public
+__anon4::src1Val	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    int32_t src1Val;  \/\/\/ Actual value of src1 (considering forwarding mux, etc.)$/;"	m	struct:__anon4	file:	access:public
+__anon4::src2Val	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int32_t src2Val;  \/\/\/ Actual value of src2 (considering forwarding mux, etc.)$/;"	m	struct:__anon4	access:public
+__anon4::src2Val	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    int32_t src2Val;  \/\/\/ Actual value of src2 (considering forwarding mux, etc.)$/;"	m	struct:__anon4	file:	access:public
+__anon5::pc	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int32_t pc; \/\/\/ Value of the current program counter (at instruction fetch stage)$/;"	m	struct:__anon5	access:public
+__anon5::pc	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    int32_t pc; \/\/\/ Value of the current program counter (at instruction fetch stage)$/;"	m	struct:__anon5	file:	access:public
+__anon5::pipeStageState	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    PipeStageState pipeStageState[SIM_PIPELINE_DEPTH];$/;"	m	struct:__anon5	access:public
+__anon5::pipeStageState	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    PipeStageStateInt pipeStageState[SIM_PIPELINE_DEPTH];$/;"	m	struct:__anon5	file:	access:public
+__anon5::regFile	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int32_t regFile[SIM_REGFILE_SIZE]; \/\/\/ Values of each register in the register file$/;"	m	struct:__anon5	access:public
+__anon5::regFile	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    int32_t regFile[SIM_REGFILE_SIZE]; \/\/\/ Values of each register in the register file$/;"	m	struct:__anon5	file:	access:public
 add_sub_branch	sim_mem.c	/^void add_sub_branch(char *line, int inst_num)$/;"	f
 addr	sim_mem.c	/^    uint32_t addr;$/;"	m	struct:__anon9	file:
-address	sim_api.h	/^    uint32_t address;$/;"	m	struct:__anon7
-br_valid	sim_api.h	/^    bool    br_valid;$/;"	m	struct:__anon7
+br_valid	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    bool    br_valid; \/\/\/ Indicates if a branch should taken for this cmd$/;"	m	struct:__anon4	file:	access:public
 branch	sim_mem.c	/^void branch(char* line, int inst_num)$/;"	f
-branch_exec	sim_core.c	/^void branch_exec (SIM_coreState* state_inst){$/;"	f
+branch_exec	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void branch_exec (SIM_coreStateInt* state_inst){$/;"	f	signature:(SIM_coreStateInt* state_inst)
 cache	sim_mem.c	/^cache_line cache[8];$/;"	v
 cache_line	sim_mem.c	/^} cache_line;$/;"	t	typeref:struct:__anon9	file:
 cache_lookup	sim_mem.c	/^int cache_lookup(uint32_t addr)$/;"	f
-check_decode_depend	sim_core.c	/^int check_decode_depend(SIM_coreState* state_inst){$/;"	f
-check_depend_on_stage	sim_core.c	/^int check_depend_on_stage (SIM_coreState* state_inst,int low_stage, int high_stage){$/;"	f
-check_memory	sim_core.c	/^int check_memory(SIM_coreState* state_inst){$/;"	f
-cmd	sim_api.h	/^    SIM_cmd cmd;      \/\/\/ The processed command in each pipe stage$/;"	m	struct:__anon7
-cmdStr	sim_api.h	/^static const char *cmdStr[] = { "NOP", "ADD", "SUB", "LOAD", "STORE", "BR", "BREQ", "BRNEQ" , "HALT"};$/;"	v
-copy_regFile	sim_core.c	/^void copy_regFile (int32_t* src, int32_t* dst){$/;"	f
+check_decode_depend	/home/ahiadl/hw/hw1_compm/sim_core.c	/^int check_decode_depend(SIM_coreStateInt* state_inst){$/;"	f	signature:(SIM_coreStateInt* state_inst)
+check_depend_on_stage	/home/ahiadl/hw/hw1_compm/sim_core.c	/^int check_depend_on_stage (SIM_coreStateInt* state_inst,int low_stage, int high_stage){$/;"	f	signature:(SIM_coreStateInt* state_inst,int low_stage, int high_stage)
+check_load_hazard	/home/ahiadl/hw/hw1_compm/sim_core.c	/^int check_load_hazard (SIM_coreStateInt* state_inst){$/;"	f	signature:(SIM_coreStateInt* state_inst)
+cmd	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    SIM_cmd cmd;      \/\/\/ The processed command in each pipe stage$/;"	m	struct:__anon4	access:public
+cmd	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    SIM_cmd cmd;      \/\/\/ The processed command in each pipe stage$/;"	m	struct:__anon4	file:	access:public
+cmdStr	/home/ahiadl/hw/hw1_compm/sim_api.h	/^static const char *cmdStr[] = { "NOP", "ADD", "SUB", "LOAD", "STORE", "BR", "BREQ", "BRNEQ" , "HALT"};$/;"	v
+copy_regFile	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void copy_regFile (int32_t* src, int32_t* dst){$/;"	f	signature:(int32_t* src, int32_t* dst)
 data	sim_mem.c	/^int32_t data[100]; \/\/ where the data is kept$/;"	v
 data_start	sim_mem.c	/^uint32_t data_start; \/\/ the addr of the data block$/;"	v
-decode_depend_on_pipe	sim_core.c	/^int decode_depend_on_pipe;$/;"	v
-dst	sim_api.h	/^    int dst;     \/\/ Destination: Index of register$/;"	m	struct:__anon6
-dstVal	sim_api.h	/^    int32_t dstVal;   \/\/\/ Value to be written to dst register.$/;"	m	struct:__anon7
-flush	sim_core.c	/^void flush (SIM_coreState* state_inst){$/;"	f
+dst	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int dst;     \/\/ Destination: Index of register$/;"	m	struct:__anon3	access:public
+dstVal	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    int32_t dstVal;   \/\/\/ Value to be written to dst register.$/;"	m	struct:__anon4	file:	access:public
+flush	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void flush (SIM_coreStateInt* state_inst){$/;"	f	signature:(SIM_coreStateInt* state_inst)
 forwarding	sim_main.c	/^bool forwarding;$/;"	v
 get_data	sim_mem.c	/^void get_data(char* line, int data_i)$/;"	f
 get_dst	sim_mem.c	/^int get_dst(char *dst)$/;"	f
@@ -85,36 +113,42 @@ get_src2	sim_mem.c	/^int get_src2(char *src2)$/;"	f
 get_src2_imm	sim_mem.c	/^int get_src2_imm(char *src2, int inst_num)$/;"	f
 get_start	sim_mem.c	/^uint32_t get_start(char *line)$/;"	f
 halt	sim_mem.c	/^void halt(char *line, int inst_num)$/;"	f
-insertNOP	sim_core.c	/^void insertNOP (PipeStageState* stage){$/;"	f
+hazard_detected	/home/ahiadl/hw/hw1_compm/sim_core.c	/^int hazard_detected;$/;"	v
+insertNOP	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void insertNOP (PipeStageStateInt* stage){$/;"	f	signature:(PipeStageStateInt* stage)
 insert_to_cache	sim_mem.c	/^void insert_to_cache(uint32_t addr)$/;"	f
 instructions	sim_mem.c	/^SIM_cmd instructions[100]; \/\/ where the instructions are kept$/;"	v
-isSrc2Imm	sim_api.h	/^    bool isSrc2Imm; \/\/ Is src2 an immediate value and not a register index$/;"	m	struct:__anon6
+isSrc2Imm	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    bool isSrc2Imm; \/\/ Is src2 an immediate value and not a register index$/;"	m	struct:__anon3	access:public
 load_store	sim_mem.c	/^void load_store(char* line, int inst_num)$/;"	f
 main	sim_main.c	/^int main(int argc, char const *argv[]) {$/;"	f
-mem_ready	sim_core.c	/^int mem_ready;$/;"	v
-opcode	sim_api.h	/^    SIM_cmd_opcode opcode;$/;"	m	struct:__anon6
-pc	sim_api.h	/^    int32_t pc; \/\/\/ Value of the current program counter (at instruction fetch stage)$/;"	m	struct:__anon8
-pc_4	sim_api.h	/^    uint32_t pc_4;$/;"	m	struct:__anon7
-pipeStage	sim_api.h	/^} pipeStage;$/;"	t	typeref:enum:__anon5
-pipeStageState	sim_api.h	/^    PipeStageState pipeStageState[SIM_PIPELINE_DEPTH];$/;"	m	struct:__anon8
-pipeStageStr	sim_api.h	/^static const char *pipeStageStr[] = { "IF", "ID", "EXE", "MEM", "WB" };$/;"	v
+mem_ready	/home/ahiadl/hw/hw1_compm/sim_core.c	/^int mem_ready;$/;"	v
+opcode	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    SIM_cmd_opcode opcode;$/;"	m	struct:__anon3	access:public
+pc	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int32_t pc; \/\/\/ Value of the current program counter (at instruction fetch stage)$/;"	m	struct:__anon5	access:public
+pc	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    int32_t pc; \/\/\/ Value of the current program counter (at instruction fetch stage)$/;"	m	struct:__anon5	file:	access:public
+pc_4	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    int32_t pc_4;     \/\/\/ pc (not pc+4) of the cmd$/;"	m	struct:__anon4	file:	access:public
+pipeStage	/home/ahiadl/hw/hw1_compm/sim_api.h	/^} pipeStage;$/;"	t	typeref:enum:__anon2
+pipeStageState	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    PipeStageState pipeStageState[SIM_PIPELINE_DEPTH];$/;"	m	struct:__anon5	access:public
+pipeStageState	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    PipeStageStateInt pipeStageState[SIM_PIPELINE_DEPTH];$/;"	m	struct:__anon5	file:	access:public
+pipeStageStr	/home/ahiadl/hw/hw1_compm/sim_api.h	/^static const char *pipeStageStr[] = { "IF", "ID", "EXE", "MEM", "WB" };$/;"	v
 prog_start	sim_mem.c	/^uint32_t prog_start; \/\/ the addr of the code block$/;"	v
 read_tick	sim_mem.c	/^uint32_t read_tick; \/\/ the clk tick of the first attempt to read$/;"	v
-regFile	sim_api.h	/^    int32_t regFile[SIM_REGFILE_SIZE]; \/\/\/ Values of each register in the register file$/;"	m	struct:__anon8
-reset_cmd	sim_core.c	/^void reset_cmd (SIM_cmd* cmd){$/;"	f
-reset_pipe_stage	sim_core.c	/^void reset_pipe_stage (PipeStageState* pipe){$/;"	f
-reset_regFile	sim_core.c	/^void reset_regFile (int32_t* regFile){$/;"	f
-reset_state	sim_core.c	/^void reset_state (SIM_coreState* state_inst){$/;"	f
-shift_backwards_pipe	sim_core.c	/^void shift_backwards_pipe(SIM_coreState* state_inst){$/;"	f
+regFile	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int32_t regFile[SIM_REGFILE_SIZE]; \/\/\/ Values of each register in the register file$/;"	m	struct:__anon5	access:public
+regFile	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    int32_t regFile[SIM_REGFILE_SIZE]; \/\/\/ Values of each register in the register file$/;"	m	struct:__anon5	file:	access:public
+reset_cmd	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void reset_cmd (SIM_cmd* cmd){$/;"	f	signature:(SIM_cmd* cmd)
+reset_pipe_stage	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void reset_pipe_stage (PipeStageStateInt* pipe){$/;"	f	signature:(PipeStageStateInt* pipe)
+reset_regFile	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void reset_regFile (int32_t* regFile){$/;"	f	signature:(int32_t* regFile)
+reset_state	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void reset_state (SIM_coreStateInt* state_inst){$/;"	f	signature:(SIM_coreStateInt* state_inst)
+search_forwarding	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void search_forwarding (SIM_coreStateInt* state_inst){$/;"	f	signature:(SIM_coreStateInt* state_inst)
+shift_backwards_pipe	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void shift_backwards_pipe(SIM_coreStateInt* state_inst){$/;"	f	signature:(SIM_coreStateInt* state_inst)
 split_regfile	sim_main.c	/^bool split_regfile;$/;"	v
-src1	sim_api.h	/^    int src1;    \/\/ Source 1: Index of register$/;"	m	struct:__anon6
-src1Val	sim_api.h	/^    int32_t src1Val;  \/\/\/ Actual value of src1 (considering forwarding mux, etc.)$/;"	m	struct:__anon7
-src2	sim_api.h	/^    int32_t src2;    \/\/ Source 2: Index of register OR immediate (see 'isSrc2Imm')$/;"	m	struct:__anon6
-src2Val	sim_api.h	/^    int32_t src2Val;  \/\/\/ Actual value of src2 (considering forwarding mux, etc.)$/;"	m	struct:__anon7
-stall	sim_core.c	/^void stall (SIM_coreState* state_inst){$/;"	f
-state	sim_core.c	/^SIM_coreState state;$/;"	v
+src1	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int src1;    \/\/ Source 1: Index of register$/;"	m	struct:__anon3	access:public
+src1Val	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int32_t src1Val;  \/\/\/ Actual value of src1 (considering forwarding mux, etc.)$/;"	m	struct:__anon4	access:public
+src1Val	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    int32_t src1Val;  \/\/\/ Actual value of src1 (considering forwarding mux, etc.)$/;"	m	struct:__anon4	file:	access:public
+src2	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int32_t src2;    \/\/ Source 2: Index of register OR immediate (see 'isSrc2Imm')$/;"	m	struct:__anon3	access:public
+src2Val	/home/ahiadl/hw/hw1_compm/sim_api.h	/^    int32_t src2Val;  \/\/\/ Actual value of src2 (considering forwarding mux, etc.)$/;"	m	struct:__anon4	access:public
+src2Val	/home/ahiadl/hw/hw1_compm/sim_core.c	/^    int32_t src2Val;  \/\/\/ Actual value of src2 (considering forwarding mux, etc.)$/;"	m	struct:__anon4	file:	access:public
+state	/home/ahiadl/hw/hw1_compm/sim_core.c	/^SIM_coreStateInt state;$/;"	v
 ticks	sim_mem.c	/^    uint32_t ticks; \/\/ for LRU$/;"	m	struct:__anon9	file:
 ticks	sim_mem.c	/^uint32_t ticks; \/\/ the current clk tick$/;"	v
 val	sim_mem.c	/^    int32_t val;$/;"	m	struct:__anon9	file:
 valid	sim_mem.c	/^    bool valid;$/;"	m	struct:__anon9	file:
-write_to_regfile	sim_core.c	/^void write_to_regfile (SIM_coreState* state_inst){$/;"	f
+write_to_regfile	/home/ahiadl/hw/hw1_compm/sim_core.c	/^void write_to_regfile (SIM_coreStateInt* state_inst){$/;"	f	signature:(SIM_coreStateInt* state_inst)
